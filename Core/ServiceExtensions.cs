@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
+using Core.Helpers;
 using Core.Interfaces.Services;
 using Core.Profiles;
 using Core.Services;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Core
@@ -11,6 +13,8 @@ namespace Core
         public static void AddCustomServices(this IServiceCollection services)
         {
             services.AddScoped<IAuthorizationService, AuthorizationService>();
+            services.AddScoped<IAuthenticationService, AuthenticationService>();
+            services.AddScoped<IJwtService, JwtService>();
             services.AddScoped<IUnitService, UnitService>();
             services.AddScoped<IFrequencyService, FrequencyService>();
             services.AddScoped<IChallengeService, ChallengeService>();
@@ -31,6 +35,10 @@ namespace Core
 
             var mapper = configures.CreateMapper();
             services.AddSingleton(mapper);
+        }
+        public static void ConfigJwtOptions(this IServiceCollection services, IConfiguration config)
+        {
+            services.Configure<JwtOptions>(config.GetSection("JwtOptions"));
         }
     }
 }

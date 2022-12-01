@@ -1,4 +1,6 @@
+using API;
 using Core;
+using Core.Helpers;
 using Microsoft.OpenApi.Models;
 using Infrastructure;
 
@@ -24,6 +26,11 @@ builder.Services.AddAutoMapper();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddResponseCaching();
 builder.Services.AddControllers();
+builder.Services.ConfigJwtOptions(builder.Configuration);
+builder.Services.AddJwtAuthentication(builder.Configuration);
+builder.Services.AddMvcCore().AddRazorViewEngine();
+builder.Services.AddSwagger();
+builder.Services.AddHttpClient();
 
 var app = builder.Build();
 

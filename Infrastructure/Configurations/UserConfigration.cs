@@ -17,6 +17,10 @@ namespace Infrastructure.Configurations
             builder
                 .HasMany(p => p.Challenges)
                 .WithMany(p => p.Users);
+            builder
+                .HasMany(p => p.RefreshTokens)
+                .WithOne(p => p.User)
+                .HasForeignKey(p => p.UserId);
         }
     }
 }

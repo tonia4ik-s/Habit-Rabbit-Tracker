@@ -18,7 +18,7 @@ public static class SeedData
             SeedFrequency(builder);
             SeedVisibility(builder);
             // SeedChallenge(builder);
-            SeedChallengeType(builder);
+            // SeedChallengeType(builder);
             // SeedDailyTask(builder);
             SeedIcon(builder);
         }

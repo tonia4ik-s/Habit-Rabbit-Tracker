@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
 using Core.Entities;
@@ -26,6 +27,11 @@ public class UserService : IUserService
         _userManager = userManager;
         _dailyTaskRepository = dailyTaskRepository;
         _challengeRepository = challengeRepository;
+    }
+    
+    public string GetCurrentUserNameIdentifier(ClaimsPrincipal currentUser)
+    {
+        return currentUser.FindFirstValue(ClaimTypes.NameIdentifier);
     }
 
     public UserDTO GetUserByName(string userName)

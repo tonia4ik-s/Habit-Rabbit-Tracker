@@ -188,6 +188,30 @@ namespace Infrastructure.Migrations
                     b.ToTable("Icons");
                 });
 
+            modelBuilder.Entity("Core.Entities.RefreshToken", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Token")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("RefreshToken");
+                });
+
             modelBuilder.Entity("Core.Entities.Subtask", b =>
                 {
                     b.Property<int>("Id")
@@ -557,6 +581,17 @@ namespace Infrastructure.Migrations
                     b.Navigation("Subtask");
                 });
 
+            modelBuilder.Entity("Core.Entities.RefreshToken", b =>
+                {
+                    b.HasOne("Core.Entities.User", "User")
+                        .WithMany("RefreshTokens")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Core.Entities.Subtask", b =>
                 {
                     b.HasOne("Core.Entities.Challenge", "Challenge")
@@ -669,6 +704,8 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Core.Entities.User", b =>
                 {
                     b.Navigation("AuthoredChallenges");
+
+                    b.Navigation("RefreshTokens");
                 });
 #pragma warning restore 612, 618
         }
