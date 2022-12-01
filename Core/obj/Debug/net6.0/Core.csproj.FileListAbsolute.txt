@@ -1,0 +1,12 @@
+G:\Habit-Rabbit Tracker\Habit-Rabbit Tracker\Core\bin\Debug\net6.0\Core.deps.json
+G:\Habit-Rabbit Tracker\Habit-Rabbit Tracker\Core\bin\Debug\net6.0\Core.dll
+G:\Habit-Rabbit Tracker\Habit-Rabbit Tracker\Core\bin\Debug\net6.0\Core.pdb
+G:\Habit-Rabbit Tracker\Habit-Rabbit Tracker\Core\obj\Debug\net6.0\Core.csproj.AssemblyReference.cache
+G:\Habit-Rabbit Tracker\Habit-Rabbit Tracker\Core\obj\Debug\net6.0\Core.GeneratedMSBuildEditorConfig.editorconfig
+G:\Habit-Rabbit Tracker\Habit-Rabbit Tracker\Core\obj\Debug\net6.0\Core.AssemblyInfoInputs.cache
+G:\Habit-Rabbit Tracker\Habit-Rabbit Tracker\Core\obj\Debug\net6.0\Core.AssemblyInfo.cs
+G:\Habit-Rabbit Tracker\Habit-Rabbit Tracker\Core\obj\Debug\net6.0\Core.csproj.CoreCompileInputs.cache
+G:\Habit-Rabbit Tracker\Habit-Rabbit Tracker\Core\obj\Debug\net6.0\Core.dll
+G:\Habit-Rabbit Tracker\Habit-Rabbit Tracker\Core\obj\Debug\net6.0\refint\Core.dll
+G:\Habit-Rabbit Tracker\Habit-Rabbit Tracker\Core\obj\Debug\net6.0\Core.pdb
+G:\Habit-Rabbit Tracker\Habit-Rabbit Tracker\Core\obj\Debug\net6.0\ref\Core.dll
