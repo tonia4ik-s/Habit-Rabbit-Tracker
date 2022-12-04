@@ -1,11 +1,9 @@
 using API;
 using Core;
-using Core.Helpers;
 using Microsoft.OpenApi.Models;
 using Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
-
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -32,6 +30,8 @@ builder.Services.AddMvcCore().AddRazorViewEngine();
 builder.Services.AddSwagger();
 builder.Services.AddHttpClient();
 
+builder.Services.AddCors(); 
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -42,10 +42,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebAPI v1"));
 }
 
+app.UseCors(corsPolicyBuilder => corsPolicyBuilder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 app.UseHttpsRedirection();
 
 app.UseStaticFiles();
-            
+
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
