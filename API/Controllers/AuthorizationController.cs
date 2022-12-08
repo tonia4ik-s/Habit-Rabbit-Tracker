@@ -4,8 +4,8 @@ using Core.Interfaces.Services;
 
 namespace API.Controllers;
 
-[Route("api/[controller]")]
-[ApiController]
+// [Route("api/[controller]")]
+// [ApiController]
 public class AuthorizationController : Controller
 {
     private readonly IAuthorizationService _authorizationService;

@@ -15,6 +15,7 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddCors();
 builder.Services.AddDbContext(connectionString);
 builder.Services.AddIdentityDbContext();
 builder.Services.AddRepositories();
@@ -30,10 +31,10 @@ builder.Services.AddMvcCore().AddRazorViewEngine();
 builder.Services.AddSwagger();
 builder.Services.AddHttpClient();
 
-builder.Services.AddCors(); 
 
 var app = builder.Build();
 
+app.UseCors(corsPolicyBuilder => corsPolicyBuilder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -42,7 +43,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebAPI v1"));
 }
 
-app.UseCors(corsPolicyBuilder => corsPolicyBuilder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 app.UseHttpsRedirection();
 
 app.UseStaticFiles();

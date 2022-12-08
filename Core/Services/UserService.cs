@@ -34,6 +34,12 @@ public class UserService : IUserService
         return currentUser.FindFirstValue(ClaimTypes.NameIdentifier);
     }
 
+    public async Task<UserDTO> GetUserById(string userId)
+    {
+        var user = await _userManager.FindByIdAsync(userId); 
+        return _mapper.Map<UserDTO>(user);
+    }
+    
     public UserDTO GetUserByName(string userName)
     {
         var user = _userRepository.Query().First(user => user.UserName.Equals(userName)); 

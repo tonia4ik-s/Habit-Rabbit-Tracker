@@ -1,7 +1,9 @@
-﻿using System.Text;
+﻿using System.Net;
+using System.Text;
 using AutoMapper;
 using Core.DTO.UserDTO;
 using Core.Entities;
+using Core.Exceptions;
 using Core.Interfaces;
 using Core.Interfaces.Services;
 using Microsoft.AspNetCore.Identity;
@@ -39,7 +41,7 @@ public class AuthenticationService : IAuthenticationService
                 messageBuilder.AppendLine(error.Description);
             }
 
-            throw new Exception(messageBuilder.ToString());
+            throw new HttpException(messageBuilder.ToString(), HttpStatusCode.BadRequest);
         }
 
         var loginDTO = new UserLoginDTO
@@ -55,7 +57,7 @@ public class AuthenticationService : IAuthenticationService
         var user = await _userManager.FindByEmailAsync(data.Email);
         if (user == null || !await _userManager.CheckPasswordAsync(user, data.Password))
         {
-            throw new Exception("IncorrectLoginOrPassword");
+            throw new HttpException("Incorrect login or password", HttpStatusCode.Unauthorized);
         }
 
         return await GenerateUserTokens(user);
@@ -66,7 +68,7 @@ public class AuthenticationService : IAuthenticationService
         var refreshToken = _refreshTokenRepository.Query().SingleOrDefault(t => t.Token == userLogoutDTO.RefreshToken);
         if (refreshToken == null)
         {
-            throw new Exception("InvalidToken");
+            throw new HttpException("Invalid Token", HttpStatusCode.NotFound);
         }
 
         await _refreshTokenRepository.DeleteAsync(refreshToken);
@@ -125,7 +127,7 @@ public class AuthenticationService : IAuthenticationService
 
         if (refreshToken == null)
         {
-            throw new Exception("InvalidToken");
+            throw new HttpException("Invalid Token", HttpStatusCode.NotFound);
         }
 
         return refreshToken;

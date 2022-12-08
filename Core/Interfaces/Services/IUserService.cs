@@ -11,4 +11,5 @@ public interface IUserService
     Task UpdateUserInfo(UpdateUserDTO updateUserDto);
     Task DeleteUser(string userName);
     string GetCurrentUserNameIdentifier(ClaimsPrincipal currentUser);
+    Task<UserDTO> GetUserById(string userId);
 }

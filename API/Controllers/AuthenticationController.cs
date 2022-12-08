@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Core.DTO.UserDTO;
 using Core.Interfaces.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace API.Controllers;
 
@@ -37,6 +38,7 @@ public class AuthenticationController : Controller
         return Ok(tokens);
     }
 
+    [Authorize]
     [HttpPost("logout")]
     public async Task<IActionResult> LogoutAsync([FromBody] UserLogoutDTO userLogoutDTO)
     {

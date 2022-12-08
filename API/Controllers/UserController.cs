@@ -3,9 +3,11 @@ using Core.Interfaces.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Core.DTO.UserDTO;
+using Microsoft.AspNetCore.Authorization;
 
 namespace API.Controllers;
 
+[Authorize]
 [Route("api/[controller]")]
 [ApiController]
 public class UserController : Controller
@@ -22,9 +24,10 @@ public class UserController : Controller
     }
 
     [HttpGet]
-    public ActionResult<UserDTO> GetCurrentUser(string userName)
+    public async Task<ActionResult<UserDTO>> GetCurrentUser()
     {
-        var user = _userService.GetUserByName(userName);
+        var userId = _userService.GetCurrentUserNameIdentifier(User);
+        var user = await _userService.GetUserById(userId);
         return Ok(user);
     }
 
