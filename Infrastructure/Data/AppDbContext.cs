@@ -12,7 +12,6 @@ namespace Infrastructure.Data
             : base(options) {}
         public DbSet<Challenge> Challenges { get; set; }
         public DbSet<DailyTask> DailyTasks { get; set; }
-        public DbSet<DailySubtask> DailySubtasks { get; set; }
         public DbSet<Frequency> Frequencies { get; set; }
         public DbSet<Unit> Units { get; set; }
         public DbSet<ChallengeType> ChallengeTypes { get; set; }

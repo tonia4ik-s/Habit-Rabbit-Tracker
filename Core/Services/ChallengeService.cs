@@ -14,22 +14,19 @@ public class ChallengeService : IChallengeService
     private readonly IMapper _mapper;
     private readonly IUserService _userService;
     private readonly IRepository<DailyTask> _dailyTaskRepository;
-    private readonly IRepository<DailySubtask> _dailySubtaskRepository;
 
     public ChallengeService(
         IRepository<Challenge> challengeRepository,
         IMapper mapper,
         IUserService userService,
         IRepository<DailyTask> dailyTaskRepository,
-        IRepository<Subtask> subtaskRepository, 
-        IRepository<DailySubtask> dailySubtaskRepository)
+        IRepository<Subtask> subtaskRepository)
     {
         _challengeRepository = challengeRepository;
         _mapper = mapper;
         _userService = userService;
         _dailyTaskRepository = dailyTaskRepository;
         _subtaskRepository = subtaskRepository;
-        _dailySubtaskRepository = dailySubtaskRepository;
     }
     
     public async Task<IList<ChallengeDTO>> GetAllChallengesByUser(string userId)
@@ -87,7 +84,7 @@ public class ChallengeService : IChallengeService
             await _dailyTaskRepository.AddAsync(dailyTask);
             foreach (var subtask in subtasks)
             {
-                var dailySubtask = new DailySubtask
+                var dailySubtask = new DailyTask
                 {
                     ChallengeId = challenge.Id,
                     SubtaskId = subtask.Id,
@@ -95,11 +92,10 @@ public class ChallengeService : IChallengeService
                     CountOfUnitsDone = 0,
                     IsDone = false
                 };
-                await _dailySubtaskRepository.AddAsync(dailySubtask);
+                await _dailyTaskRepository.AddAsync(dailySubtask);
             }
         }
         await _dailyTaskRepository.SaveChangesAsync();
-        await _dailySubtaskRepository.SaveChangesAsync();
     }
 
     public async Task UpdateChallenge(UpdateChallengeDTO updateChallengeDto)
@@ -116,7 +112,10 @@ public class ChallengeService : IChallengeService
         var challenge = await _challengeRepository.GetByIdAsync(challengeId);
         var tasks = await _dailyTaskRepository.Query()
             .Where(t => t.ChallengeId == challengeId).ToListAsync();
+        var subtasks = await _subtaskRepository.Query()
+            .Where(t => t.ChallengeId == challengeId).ToListAsync();
         await _dailyTaskRepository.DeleteRange(tasks);
+        await _subtaskRepository.DeleteRange(subtasks);
         await _challengeRepository.DeleteAsync(challenge);
         await _challengeRepository.SaveChangesAsync();
     }

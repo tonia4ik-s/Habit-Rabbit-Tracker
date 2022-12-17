@@ -1,9 +1,11 @@
 using Core.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
 using Core.DTO.FrequencyDTO;
+using Microsoft.AspNetCore.Authorization;
 
 namespace API.Controllers;
 
+[Authorize]
 [Route("api/[controller]")]
 [ApiController]
 public class FrequencyController : Controller

@@ -2,9 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Infrastructure.Configurations
-{
-    public class DailyTaskConfiguration : IEntityTypeConfiguration<DailyTask>
+namespace Infrastructure.Configurations;
+public class DailyTaskConfiguration : IEntityTypeConfiguration<DailyTask>
     {
         public void Configure(EntityTypeBuilder<DailyTask> builder)
         {
@@ -13,6 +12,11 @@ namespace Infrastructure.Configurations
                 .WithMany(p => p.DailyTasks)
                 .HasForeignKey(p => p.ChallengeId);
             builder
+                .HasOne(p => p.Subtask)
+                .WithMany(p => p.DailyTasks)
+                .HasForeignKey(p => p.SubtaskId)
+                .IsRequired(false);
+            builder
                 .Property(p => p.AssignedDate)
                 .IsRequired();
             builder
@@ -20,4 +24,4 @@ namespace Infrastructure.Configurations
                 .HasDefaultValue(false);
         }
     }
-}
+

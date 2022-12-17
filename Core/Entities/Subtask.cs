@@ -10,5 +10,5 @@ public class Subtask
     public Challenge Challenge { get; set; }
     public int CountOfUnits { get; set; }
     
-    public ICollection<DailySubtask> DailySubtasks { get; set; }
+    public ICollection<DailyTask> DailyTasks { get; set; }
 }

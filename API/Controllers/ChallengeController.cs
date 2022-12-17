@@ -20,10 +20,10 @@ public class ChallengeController : Controller
     }
 
     [HttpGet]
-    public async Task<ActionResult> GetChallengesByUserId(string userName)
+    public async Task<ActionResult> GetChallengesByUserId()
     {
-        var user = _userService.GetUserByName(userName);
-        var challenges = await _challengeService.GetAllChallengesByUser(user.Id);
+        var userId = _userService.GetCurrentUserNameIdentifier(User);
+        var challenges = await _challengeService.GetAllChallengesByUser(userId);
         return Ok(challenges);
     }
         
