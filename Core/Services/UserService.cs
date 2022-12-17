@@ -60,7 +60,7 @@ public class UserService : IUserService
         foreach (var challenge in challenges)
         {
             var tasksByChallenge = _dailyTaskRepository.Query()
-                .Where(t => t.ChallengeId == challenge.Id && t.StartDate.Date == DateTime.Now.Date).ToList();
+                .Where(t => t.ChallengeId == challenge.Id && t.AssignedDate.Date == DateTime.Now.Date).ToList();
             await _dailyTaskRepository.DeleteRange(tasksByChallenge);
         }
         await _challengeRepository.DeleteRange(challenges);

@@ -10,20 +10,26 @@ namespace Core.Services;
 public class ChallengeService : IChallengeService
 {
     private readonly IRepository<Challenge> _challengeRepository;
+    private readonly IRepository<Subtask> _subtaskRepository;
     private readonly IMapper _mapper;
     private readonly IUserService _userService;
     private readonly IRepository<DailyTask> _dailyTaskRepository;
+    private readonly IRepository<DailySubtask> _dailySubtaskRepository;
 
     public ChallengeService(
         IRepository<Challenge> challengeRepository,
         IMapper mapper,
         IUserService userService,
-        IRepository<DailyTask> dailyTaskRepository)
+        IRepository<DailyTask> dailyTaskRepository,
+        IRepository<Subtask> subtaskRepository, 
+        IRepository<DailySubtask> dailySubtaskRepository)
     {
         _challengeRepository = challengeRepository;
         _mapper = mapper;
         _userService = userService;
         _dailyTaskRepository = dailyTaskRepository;
+        _subtaskRepository = subtaskRepository;
+        _dailySubtaskRepository = dailySubtaskRepository;
     }
     
     public async Task<IList<ChallengeDTO>> GetAllChallengesByUser(string userId)
@@ -37,18 +43,33 @@ public class ChallengeService : IChallengeService
         return challenges.Select(challenge => _mapper.Map<ChallengeDTO>(challenge)).ToList();
     }
 
-    public async Task AddChallenge(CreateChallengeDTO createChallengeDto)
+    public async Task AddChallenge(string userId, CreateChallengeDTO createChallengeDto)
     {
-        var user = _userService.GetUserByName(createChallengeDto.AuthorName);
+        var user = await _userService.GetUserById(userId);
         var challenge = _mapper.Map<Challenge>(createChallengeDto);
         challenge.CreatedById = user.Id;
         challenge = await _challengeRepository.AddAsync(challenge);
         await _challengeRepository.SaveChangesAsync();
+        List<Subtask> sub = new List<Subtask>();
+        if (createChallengeDto.SubtaskDtos != null)
+        {
+            var subtasks = _mapper.Map<List<Subtask?>>(createChallengeDto.SubtaskDtos);
             
-        await CreateDailyTasksByChallenge(challenge);
+            foreach (var subtask in subtasks)
+            {
+                if (subtask != null) subtask.ChallengeId = challenge.Id;
+            }
+
+            sub = (await _subtaskRepository.AddRangeAsync(subtasks!)).ToList();
+            await _subtaskRepository.SaveChangesAsync();
+        }
+        await CreateDailyTasksByChallenge(challenge, sub);
     }
 
-    private async Task CreateDailyTasksByChallenge(Challenge challenge)
+    private async Task CreateDailyTasksByChallenge(
+        Challenge challenge,
+        List<Subtask> subtasks
+        )
     {
         var startDate = challenge.StartDate.Date;
         var endDate = challenge.EndDate;
@@ -59,13 +80,26 @@ public class ChallengeService : IChallengeService
             var dailyTask = new DailyTask
             {
                 ChallengeId = challenge.Id,
-                StartDate = startDate.AddDays(i),
+                AssignedDate = startDate.AddDays(i),
                 CountOfUnitsDone = 0,
                 IsDone = false
             };
             await _dailyTaskRepository.AddAsync(dailyTask);
+            foreach (var subtask in subtasks)
+            {
+                var dailySubtask = new DailySubtask
+                {
+                    ChallengeId = challenge.Id,
+                    SubtaskId = subtask.Id,
+                    AssignedDate = startDate.AddDays(i),
+                    CountOfUnitsDone = 0,
+                    IsDone = false
+                };
+                await _dailySubtaskRepository.AddAsync(dailySubtask);
+            }
         }
         await _dailyTaskRepository.SaveChangesAsync();
+        await _dailySubtaskRepository.SaveChangesAsync();
     }
 
     public async Task UpdateChallenge(UpdateChallengeDTO updateChallengeDto)

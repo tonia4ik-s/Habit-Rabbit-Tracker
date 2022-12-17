@@ -13,11 +13,7 @@ namespace Infrastructure.Configurations
                 .WithMany(p => p.DailyTasks)
                 .HasForeignKey(p => p.ChallengeId);
             builder
-                .HasOne(p => p.Subtask)
-                .WithMany(p => p.DailyTasks)
-                .HasForeignKey(p => p.ChallengeId);
-            builder
-                .Property(p => p.StartDate)
+                .Property(p => p.AssignedDate)
                 .IsRequired();
             builder
                 .Property(p => p.IsDone)

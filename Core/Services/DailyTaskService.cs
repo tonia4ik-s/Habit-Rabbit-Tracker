@@ -38,7 +38,7 @@ public class DailyTaskService : IDailyTaskService
         foreach (var challenge in challenges)
         {
             var tasksByChallenge = _dailyTaskRepository.Query()
-                .Where(t => t.ChallengeId == challenge.Id && t.StartDate.Date == DateTime.Now.Date)
+                .Where(t => t.ChallengeId == challenge.Id && t.AssignedDate.Date == DateTime.Now.Date)
                 .Include(t => t.Challenge.Unit)
                 .Include(t => t.Challenge.Frequency).ToList();
             tasks.AddRange(tasksByChallenge);

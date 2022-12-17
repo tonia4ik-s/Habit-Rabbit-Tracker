@@ -1,5 +1,3 @@
-using System.Security.Claims;
-using System.Threading.Tasks;
 using UserDTO = Core.DTO.UserDTO.UserDTO;
 using UserLoginDTO = Core.DTO.UserDTO.UserLoginDTO;
 using UserRegistrationDTO = Core.DTO.UserDTO.UserRegistrationDTO;

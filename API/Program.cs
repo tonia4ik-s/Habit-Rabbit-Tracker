@@ -1,4 +1,5 @@
 using API;
+using API.Middlewares;
 using Core;
 using Microsoft.OpenApi.Models;
 using Infrastructure;
@@ -46,6 +47,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseStaticFiles();
+// app.UseMiddleware<ExceptionHandlerMiddleware>();
 
 app.UseRouting();
 app.UseAuthentication();

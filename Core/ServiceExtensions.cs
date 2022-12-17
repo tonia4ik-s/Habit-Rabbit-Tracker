@@ -31,6 +31,7 @@ namespace Core
                 mc.AddProfile(new FrequencyProfile());
                 mc.AddProfile(new ChallengeProfile());
                 mc.AddProfile(new DailyTaskProfile());
+                mc.AddProfile(new SubtaskProfile());
             });
 
             var mapper = configures.CreateMapper();

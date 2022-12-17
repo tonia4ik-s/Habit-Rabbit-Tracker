@@ -1,5 +1,4 @@
 using System.Security.Claims;
-using System.Threading.Tasks;
 using UpdateUserDTO = Core.DTO.UserDTO.UpdateUserDTO;
 using UserDTO = Core.DTO.UserDTO.UserDTO;
 

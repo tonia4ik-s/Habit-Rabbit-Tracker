@@ -11,6 +11,7 @@ public interface IRepository<TEntity> where TEntity : class
     Task<IEnumerable<TEntity>> GetAllAsync();
     Task<TEntity> GetByIdAsync<TKey>(TKey id);
     Task<TEntity> AddAsync(TEntity entity);
+    Task<IList<TEntity>> AddRangeAsync(IList<TEntity> entities);
     Task DeleteAsync(TEntity entityToDelete);
     Task DeleteRange(IEnumerable<TEntity> entitiesToDelete);
     Task UpdateAsync(TEntity entityToUpdate);

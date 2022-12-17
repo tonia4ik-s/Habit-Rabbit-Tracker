@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using Ardalis.Specification.EntityFrameworkCore;
+
 using System.Threading.Tasks;
 using Core.Interfaces;
 using Infrastructure.Data;
@@ -9,12 +11,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repository
 {
-    public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
+    public class Repository<TEntity> : RepositoryBase<TEntity>, IRepository<TEntity> where TEntity : class
     {
         private AppDbContext _context;
         private DbSet<TEntity> _dbSet;
 
-        public Repository(AppDbContext context)
+        public Repository(AppDbContext context) : base(context)
         {
             _context = context;
             _dbSet = _context.Set<TEntity>();
@@ -50,6 +52,14 @@ namespace Infrastructure.Repository
         public async Task<TEntity> AddAsync(TEntity entity)
         {
             return (await _dbSet.AddAsync(entity)).Entity;
+        }
+        
+        public async Task<IList<TEntity>> AddRangeAsync(IList<TEntity> entities)
+        {
+            await _dbSet.AddRangeAsync(entities);
+            await _context.SaveChangesAsync();
+
+            return entities.ToList();
         }
 
         public async Task UpdateAsync(TEntity entityToUpdate)

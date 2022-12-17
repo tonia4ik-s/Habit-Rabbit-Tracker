@@ -24,6 +24,7 @@ public class Challenge
     public string Color { get; set; }
         
     public ICollection<DailyTask> DailyTasks { get; set; }
+    public ICollection<DailySubtask> DailySubtasks { get; set; }
     public ICollection<Subtask> Subtasks { get; set; }
     public ICollection<User> Users { get; set; }
 }

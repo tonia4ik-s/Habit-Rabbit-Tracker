@@ -37,7 +37,8 @@ public class ChallengeController : Controller
     [HttpPost("create")]
     public async Task<ActionResult> AddChallenge(CreateChallengeDTO createChallengeDto)
     {
-        await _challengeService.AddChallenge(createChallengeDto);
+        var userId = _userService.GetCurrentUserNameIdentifier(User);
+        await _challengeService.AddChallenge(userId, createChallengeDto);
         return Ok();
     }
         
