@@ -54,7 +54,8 @@ public class AuthenticationService : IAuthenticationService
 
     public async Task<UserAuthorizationDTO> LoginAsync(UserLoginDTO data)
     {
-        var user = await _userManager.FindByEmailAsync(data.Email);
+        var user = await _userManager.FindByEmailAsync(data.Email) ??
+                   await _userManager.FindByNameAsync(data.Email);
         if (user == null || !await _userManager.CheckPasswordAsync(user, data.Password))
         {
             throw new HttpException("Incorrect login or password", HttpStatusCode.Unauthorized);

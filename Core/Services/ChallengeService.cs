@@ -36,6 +36,7 @@ public class ChallengeService : IChallengeService
             .Include(ch => ch.Frequency)
             .Include(ch => ch.Unit)
             .Include(ch => ch.CreatedBy)
+            .Include(ch => ch.Subtasks)
             .ToListAsync();
         return challenges.Select(challenge => _mapper.Map<ChallengeDTO>(challenge)).ToList();
     }
@@ -47,14 +48,14 @@ public class ChallengeService : IChallengeService
         challenge.CreatedById = user.Id;
         challenge = await _challengeRepository.AddAsync(challenge);
         await _challengeRepository.SaveChangesAsync();
-        List<Subtask> sub = new List<Subtask>();
+        var sub = new List<Subtask>();
         if (createChallengeDto.SubtaskDtos != null)
         {
             var subtasks = _mapper.Map<List<Subtask?>>(createChallengeDto.SubtaskDtos);
             
-            foreach (var subtask in subtasks)
-            {
-                if (subtask != null) subtask.ChallengeId = challenge.Id;
+            foreach (var subtask in subtasks.Where(subtask => subtask != null))
+            { 
+                subtask.ChallengeId = challenge.Id;
             }
 
             sub = (await _subtaskRepository.AddRangeAsync(subtasks!)).ToList();
