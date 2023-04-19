@@ -11,7 +11,7 @@ public class ChallengeDTO
     public int CountOfUnits { get; set; }
     public string UnitShortTitle { get; set; }
     public string UnitTitle { get; set; }
-    public string FrequencyTitle { get; set; }
+    public string Frequency { get; set; }
     public string VisibilityType { get; set; }
     public string IconName { get; set; }
     public string Color { get; set; }

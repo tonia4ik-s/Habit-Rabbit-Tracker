@@ -75,10 +75,16 @@ public class ChallengeService : IChallengeService
             
         for (var i = 0; i < days; i++)
         {
+            var assignedDate = startDate.AddDays(i);
+            var isAssigned = challenge.Frequency[(int)assignedDate.DayOfWeek];
+            if (isAssigned == '0')
+            {
+                continue;
+            }
             var dailyTask = new DailyTask
             {
                 ChallengeId = challenge.Id,
-                AssignedDate = startDate.AddDays(i),
+                AssignedDate = assignedDate,
                 CountOfUnitsDone = 0,
                 IsDone = false
             };
