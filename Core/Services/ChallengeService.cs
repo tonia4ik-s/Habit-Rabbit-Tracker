@@ -33,10 +33,10 @@ public class ChallengeService : IChallengeService
     {
         var challenges = await _challengeRepository.Query()
             .Where(c => c.CreatedById == userId)
-            .Include(ch => ch.Frequency)
             .Include(ch => ch.Unit)
             .Include(ch => ch.CreatedBy)
             .Include(ch => ch.Subtasks)
+            .Include(ch => ch.Visibility)
             .ToListAsync();
         return challenges.Select(challenge => _mapper.Map<ChallengeDTO>(challenge)).ToList();
     }
@@ -99,9 +99,9 @@ public class ChallengeService : IChallengeService
         await _dailyTaskRepository.SaveChangesAsync();
     }
 
-    public async Task UpdateChallenge(UpdateChallengeDTO updateChallengeDto)
+    public async Task UpdateChallenge(string userId, UpdateChallengeDTO updateChallengeDto)
     {
-        var user = _userService.GetUserByName(updateChallengeDto.AuthorName);
+        var user = await _userService.GetUserById(userId);
         var challenge = _mapper.Map<Challenge>(updateChallengeDto);
         challenge.CreatedById = user.Id;
         await _challengeRepository.UpdateAsync(challenge);

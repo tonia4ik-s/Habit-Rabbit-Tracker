@@ -10,10 +10,9 @@ public class Challenge
     public int CountOfUnits { get; set; }
     public int UnitId { get; set; }
     public Unit Unit { get; set; }
-    public int FrequencyId { get; set; }
-    public Frequency Frequency { get; set; }
-    public int IconId { get; set; }
-    public Icon Icon { get; set; }
+    public string Frequency { get; set; }
+    public string IconName { get; set; }
+    public string Color { get; set; }
     public int ChallengeTypeId { get; set; }
     public ChallengeType ChallengeType { get; set; }
     public int VisibilityId { get; set; }
@@ -21,8 +20,7 @@ public class Challenge
     public DateTimeOffset StartDate { get; set; }
     public DateTimeOffset EndDate { get; set; }
     public bool IsCompleted { get; set; }
-    public string Color { get; set; }
-        
+
     public ICollection<DailyTask> DailyTasks { get; set; }
     public ICollection<Subtask> Subtasks { get; set; }
     public ICollection<User> Users { get; set; }

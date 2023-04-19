@@ -7,8 +7,8 @@ public class CreateChallengeDTO
     public string? Description { get; set; }
     public int CountOfUnits { get; set; }
     public int UnitId { get; set; }
-    public int FrequencyId { get; set; }
-    public int IconId { get; set; }
+    public string Frequency { get; set; }
+    public string IconName { get; set; }
     public int ChallengeTypeId { get; set; }
     public int VisibilityId { get; set; }
     public string Color { get; set; }

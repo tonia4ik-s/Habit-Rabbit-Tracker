@@ -16,7 +16,6 @@ namespace Core
             services.AddScoped<IAuthenticationService, AuthenticationService>();
             services.AddScoped<IJwtService, JwtService>();
             services.AddScoped<IUnitService, UnitService>();
-            services.AddScoped<IFrequencyService, FrequencyService>();
             services.AddScoped<IChallengeService, ChallengeService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IDailyTaskService, DailyTaskService>();
@@ -28,7 +27,6 @@ namespace Core
             {
                 mc.AddProfile(new UserProfile());
                 mc.AddProfile(new UnitProfile());
-                mc.AddProfile(new FrequencyProfile());
                 mc.AddProfile(new ChallengeProfile());
                 mc.AddProfile(new DailyTaskProfile());
                 mc.AddProfile(new SubtaskProfile());

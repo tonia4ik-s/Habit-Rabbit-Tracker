@@ -1,26 +1,54 @@
 using AutoMapper;
+using Core.DTO.DailyTaskDTO;
+using Core.DTO.SubtaskDTO;
 using Core.Entities;
-using DailyTaskDTO = Core.DTO.DailyTaskDTO.DailyTaskDTO;
 
-namespace Core.Profiles
+namespace Core.Profiles;
+
+public class DailyTaskProfile : Profile
 {
-    public class DailyTaskProfile : Profile
+    public DailyTaskProfile()
     {
-        public DailyTaskProfile()
-        {
-            CreateMap<DailyTask, DailyTaskDTO>()
-                .ForMember(d => d.FrequencyType,
-                    opt => opt
-                        .MapFrom(task => task.Challenge.Frequency.Type))
-                .ForMember(d => d.UnitShortName,
-                    opt => opt
-                        .MapFrom(task => task.Challenge.Unit.ShortType))
-                .ForMember(d => d.CountOfUnits,
-                    opt => opt
-                        .MapFrom(task => task.Challenge.CountOfUnits))
-                .ForMember(d => d.UnitName,
-                    opt => opt
-                        .MapFrom(task => task.Challenge.Unit.Type));
-        }
+        CreateMap<DailyTask, DailyTaskDTO>()
+            .ForMember(d => d.UnitShortName,
+                opt => opt
+                    .MapFrom(task => task.Challenge.Unit.ShortType))
+            .ForMember(d => d.CountOfUnits,
+                opt => opt
+                    .MapFrom(task => task.Challenge.CountOfUnits))
+            .ForMember(d => d.UnitName,
+                opt => opt
+                    .MapFrom(task => task.Challenge.Unit.Type))
+            .ForMember(d => d.Description,
+                opt => opt
+                    .MapFrom(task => task.Challenge.Description));
+        
+        CreateMap<DailyTask, GetDailyTaskDTO>()
+            .ForMember(d => d.UnitShortName,
+                opt => opt
+                    .MapFrom(task => task.Challenge.Unit.ShortType))
+            .ForMember(d => d.CountOfUnits,
+                opt => opt
+                    .MapFrom(task => task.Challenge.CountOfUnits))
+            .ForMember(d => d.UnitName,
+                opt => opt
+                    .MapFrom(task => task.Challenge.Unit.Type))
+            .ForMember(d => d.Description,
+                opt => opt
+                    .MapFrom(task => task.Challenge.Description));
+           
+        CreateMap<DailyTask, GetSubtaskDTO>()
+            .ForMember(d => d.Title,
+                opt => opt
+                    .MapFrom(task => task.Subtask!.Title))
+            .ForMember(d => d.UnitShortName,
+                opt => opt
+                    .MapFrom(task => task.Subtask!.Unit.ShortType))
+            .ForMember(d => d.CountOfUnits,
+                opt => opt
+                    .MapFrom(task => task.Subtask!.CountOfUnits))
+            .ForMember(d => d.UnitName,
+                opt => opt
+                    .MapFrom(task => task.Subtask!.Unit.Type));
     }
 }

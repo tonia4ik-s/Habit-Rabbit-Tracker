@@ -14,9 +14,9 @@ namespace Core.Profiles
                 .ForMember(d => d.AuthorId,
                     opt => opt
                         .MapFrom(ch => ch.CreatedById))
-                .ForMember(d => d.FrequencyTitle,
+                .ForMember(d => d.VisibilityType,
                     opt => opt
-                        .MapFrom(ch => ch.Frequency.Type))
+                        .MapFrom(ch => ch.Visibility.Type))
                 .ForMember(d => d.UnitShortTitle,
                     opt => opt
                         .MapFrom(ch => ch.Unit.ShortType))

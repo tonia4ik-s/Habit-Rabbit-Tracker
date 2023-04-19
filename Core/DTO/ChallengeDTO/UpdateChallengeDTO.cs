@@ -5,8 +5,9 @@ namespace Core.DTO.ChallengeDTO;
 public class UpdateChallengeDTO
 {
     public int Id { get; set; }
-    public string AuthorName { get; set; }
+    // public string AuthorName { get; set; }
     public string Title { get; set; }
+    public string Description { get; set; }
     public int CountOfUnits { get; set; }
     public int UnitId { get; set; }
     public int FrequencyId { get; set; }

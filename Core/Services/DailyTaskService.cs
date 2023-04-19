@@ -9,6 +9,7 @@ using Core.Interfaces.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Core.DTO.DailyTaskDTO;
+using Core.DTO.SubtaskDTO;
 
 namespace Core.Services;
 
@@ -31,19 +32,69 @@ public class DailyTaskService : IDailyTaskService
         _mapper = mapper;
     }
 
-    public async Task<IList<DailyTaskDTO>> GetAllTasksForTodayByUser(string userId)
+    public async Task<List<GetDailyTaskDTO>> GetAllTasksForTodayByUser(string userId)
     {
-        var challenges = await _challengeService.GetAllChallengesByUser(userId);
-        var tasks = new List<DailyTask>();
-        foreach (var challenge in challenges)
+        var tasks = await _dailyTaskRepository.Query()
+            .Where(t => t.AssignedDate.Date == DateTime.Now.Date
+                        && t.SubtaskId == null)
+            .Include(t => t.Challenge.Unit)
+            .Include(t => t.Challenge.Frequency).ToListAsync();
+        var mappedTasks = new List<GetDailyTaskDTO>();
+        foreach (var task in tasks)
         {
-            var tasksByChallenge = _dailyTaskRepository.Query()
-                .Where(t => t.ChallengeId == challenge.Id && t.AssignedDate.Date == DateTime.Now.Date)
-                .Include(t => t.Challenge.Unit)
-                .Include(t => t.Challenge.Frequency).ToList();
-            tasks.AddRange(tasksByChallenge);
+            var taskDTO = _mapper.Map<GetDailyTaskDTO>(task);
+            var subtasks = await _dailyTaskRepository.Query()
+                .Where(t => t.ChallengeId == task.ChallengeId 
+                            && t.AssignedDate.Date == DateTime.Now.Date
+                            && t.SubtaskId != null)
+                .Include(t => t.Subtask)
+                .ThenInclude(s => s!.Unit).ToListAsync();
+            taskDTO.Subtasks = subtasks.Select(s => _mapper.Map<GetSubtaskDTO>(s)).ToList();
+            mappedTasks.Add(taskDTO);
         }
-        return tasks.Select(task => _mapper.Map<DailyTaskDTO>(task)).ToList();
+
+        return mappedTasks;
+    }
+    
+    // public async Task<IList<DailyTaskDTO>> GetAllTasksForDateByUser(string userId, DateTime date)
+    // {
+    //     var challenges = await _challengeService.GetAllChallengesByUser(userId);
+    //     var tasks = new List<DailyTask>();
+    //     foreach (var challenge in challenges)
+    //     {
+    //         var tasksByChallenge = _dailyTaskRepository.Query()
+    //             .Where(t => t.ChallengeId == challenge.Id
+    //                         && t.AssignedDate.Date == date.Date
+    //                         && t.SubtaskId != null)
+    //             .Include(t => t.Challenge.Unit)
+    //             .Include(t => t.Challenge.Frequency).ToList();
+    //         tasks.AddRange(tasksByChallenge);
+    //     }
+    //     return tasks.Select(task => _mapper.Map<DailyTaskDTO>(task)).ToList();
+    // }
+    
+    public async Task<List<GetDailyTaskDTO>> GetAllTasksForDateByUser(string userId, DateTime date)
+    {
+        var tasks = await _dailyTaskRepository.Query()
+            .Where(t => t.AssignedDate.Date == date.Date
+                        && t.SubtaskId == null)
+            .Include(t => t.Challenge.Unit)
+            .Include(t => t.Challenge.Frequency).ToListAsync();
+        var mappedTasks = new List<GetDailyTaskDTO>();
+        foreach (var task in tasks)
+        {
+            var taskDTO = _mapper.Map<GetDailyTaskDTO>(task);
+            var subtasks = await _dailyTaskRepository.Query()
+                .Where(t => t.ChallengeId == task.ChallengeId 
+                            && t.AssignedDate.Date == date.Date
+                            && t.SubtaskId != null)
+                .Include(t => t.Subtask)
+                .ThenInclude(s => s!.Unit).ToListAsync();
+            taskDTO.Subtasks = subtasks.Select(s => _mapper.Map<GetSubtaskDTO>(s)).ToList();
+            mappedTasks.Add(taskDTO);
+        }
+
+        return mappedTasks;
     }
         
     public async Task AddProgress(AddProgressDTO addProgressDto)

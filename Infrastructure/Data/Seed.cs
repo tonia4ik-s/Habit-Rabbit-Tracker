@@ -13,8 +13,10 @@ public static class Seed
     {
         SeedUser(builder);
         SeedUnit(builder);
-        SeedFrequency(builder);
         SeedVisibility(builder);
+        SeedChallengeType(builder);
+        SeedChallenge(builder);
+        SeedDailyTasks(builder);
     }
 
     #region User
@@ -114,20 +116,6 @@ public static class Seed
 
     #endregion
 
-    #region Frequency
-
-    private static void SeedFrequency(ModelBuilder builder)
-    {
-        builder.Entity<Frequency>()
-            .HasData(
-                new Frequency{ Id = 1, Type = "Per Day"},
-                new Frequency{ Id = 2, Type = "Per Week"},
-                new Frequency{ Id = 3, Type = "Per Month"}
-            );
-    }
-
-    #endregion
-
     #region Visibility
 
     private static void SeedVisibility(ModelBuilder builder)
@@ -138,6 +126,132 @@ public static class Seed
                 new Visibility{ Id = 2, Type = "Friends"},
                 new Visibility{ Id = 3, Type = "All users"}
             );
+    }
+
+    #endregion
+    
+    #region ChallengeTypes
+
+    private static void SeedChallengeType(ModelBuilder builder)
+    {
+        builder.Entity<ChallengeType>()
+            .HasData(
+                new ChallengeType{Id = 1, Type = "Build a habit"},
+                new ChallengeType{ Id = 2, Type = "Quit a habit"}
+            );
+    }
+
+    #endregion
+
+    #region Challenge
+
+    private static readonly Challenge Challenge1 = new()
+    {
+        Id = 1,
+        CreatedById = ToniaId,
+        Title = "Drink Water",
+        Description = "Water is vital for healthy life. So, I need to drink it enough!",
+        ChallengeTypeId = 1,
+        Color = "#8CEF73",
+        CountOfUnits = 500,
+        UnitId = 5,
+        Frequency = "1111100",
+        IconName = "mdiWaterCheck",
+        VisibilityId = 1,
+        StartDate = DateTimeOffset.Now,
+        EndDate = DateTimeOffset.Now.AddDays(21),
+        IsCompleted = false
+    };
+
+    private static readonly Challenge Challenge2 = new()
+    {
+        Id = 2,
+        CreatedById = AnnaId,
+        Title = "Drink Water",
+        Description = "Water is vital for healthy life. So, I need to drink it enough!",
+        ChallengeTypeId = 1,
+        Color = "#8CEF73",
+        CountOfUnits = 500,
+        UnitId = 5,
+        Frequency = "1111100",
+        IconName = "mdiWaterCheck",
+        VisibilityId = 1,
+        StartDate = DateTimeOffset.Now,
+        EndDate = DateTimeOffset.Now.AddDays(21),
+        IsCompleted = false
+    };
+
+    private static readonly Challenge Challenge3 = new()
+    {
+        Id = 3,
+        CreatedById = ToniaId,
+        Title = "Run",
+        Description = "",
+        ChallengeTypeId = 1,
+        Color = "#FEFA95",
+        CountOfUnits = 15,
+        UnitId = 2,
+        Frequency = "1101100",
+        IconName = "mdiRunFast",
+        VisibilityId = 1,
+        StartDate = DateTimeOffset.Now,
+        EndDate = DateTimeOffset.Now.AddDays(21),
+        IsCompleted = false
+    };
+
+    private static readonly Challenge Challenge4 = new()
+    {
+        Id = 4,
+        CreatedById = AnnaId,
+        Title = "Run",
+        Description = "",
+        ChallengeTypeId = 1,
+        Color = "#FEFA95",
+        CountOfUnits = 15,
+        UnitId = 2,
+        Frequency = "1101100",
+        IconName = "mdiRunFast",
+        VisibilityId = 1,
+        StartDate = DateTimeOffset.Now,
+        EndDate = DateTimeOffset.Now.AddDays(21),
+        IsCompleted = false
+    };
+    private static readonly List<Challenge> Challenges = new() { Challenge1, Challenge2, Challenge3, Challenge4};
+    private static void SeedChallenge(ModelBuilder builder)
+    {
+        builder.Entity<Challenge>()
+            .HasData(Challenges);
+    }
+
+    #endregion
+
+    #region DailyTasks
+
+    private static void SeedDailyTasks(ModelBuilder builder)
+    {
+        var tasks = new List<DailyTask> ();
+        var id = 1;
+        foreach (var challenge in Challenges)
+        {
+            var startDate = challenge.StartDate.Date;
+            var endDate = challenge.EndDate;
+            var days = (endDate - startDate).Days + 1;
+
+            for (var i = 0; i < days; i++)
+            {
+                var dailyTask = new DailyTask
+                {
+                    Id = id,
+                    ChallengeId = challenge.Id,
+                    AssignedDate = startDate.AddDays(i),
+                    CountOfUnitsDone = 0,
+                    IsDone = false
+                };
+                tasks.Add(dailyTask);
+                id++;
+            }
+        }
+        builder.Entity<DailyTask>().HasData(tasks);
     }
 
     #endregion

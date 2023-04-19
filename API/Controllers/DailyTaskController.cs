@@ -20,10 +20,20 @@ public class DailyTaskController : Controller
     }  
         
     [HttpGet("today")]
-    public async Task<ActionResult<IList<DailyTaskDTO>>> GetAllTasksForToday(string userName)
+    public async Task<ActionResult<IList<GetDailyTaskDTO>>> GetAllTasksForToday()
     {
-        var user = _userService.GetUserByName(userName);
-        var tasks = await _dailyTaskService.GetAllTasksForTodayByUser(user.Id);
+        var userId = _userService.GetCurrentUserNameIdentifier(User);
+        var tasks = await _dailyTaskService.GetAllTasksForTodayByUser(userId);
+        return Ok(tasks);
+    }
+    
+    [HttpPost("by-date")]
+    public async Task<ActionResult<IList<GetDailyTaskDTO>>> GetAllTasksByDate([FromBody] DateTime date)
+    {
+        var currentDate = GetLocalDate(date);
+        Console.WriteLine(currentDate);
+        var userId = _userService.GetCurrentUserNameIdentifier(User);
+        var tasks = await _dailyTaskService.GetAllTasksForDateByUser(userId, currentDate);
         return Ok(tasks);
     }
         
@@ -38,5 +48,25 @@ public class DailyTaskController : Controller
     public async Task RemoveProgress(int taskId)
     {
         await _dailyTaskService.RemoveProgress(taskId);
+    }
+
+    [HttpDelete]
+    public async Task<ActionResult> DeleteTasksByChallenge(int challengeId)
+    {
+        await _dailyTaskService.DeleteAllTasksByChallenge(challengeId);
+        return Ok();
+    }
+
+    private static DateTime GetLocalDate(DateTime date)
+    {
+        try
+        {
+            return date.Kind != DateTimeKind.Local ? TimeZoneInfo.ConvertTimeFromUtc(date, TimeZoneInfo.Local) : date;
+
+        }
+        catch (Exception)
+        {
+            return DateTime.Now;
+        }
     }
 }

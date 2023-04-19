@@ -10,7 +10,7 @@ public interface IChallengeService
 {
     Task<IList<ChallengeDTO>> GetAllChallengesByUser(string userId);
     Task AddChallenge(string userId, CreateChallengeDTO createChallengeDto);
-    Task UpdateChallenge(UpdateChallengeDTO updateChallengeDto);
+    Task UpdateChallenge(string userId, UpdateChallengeDTO updateChallengeDto);
     Task DeleteChallenge(int challengeId);
     Task<ChallengeDTO> GetChallengeById(int challengeId);
 }

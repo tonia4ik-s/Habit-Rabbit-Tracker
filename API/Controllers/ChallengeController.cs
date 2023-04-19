@@ -45,7 +45,8 @@ public class ChallengeController : Controller
     [HttpPost("update")]
     public async Task<ActionResult> UpdateChallenge(UpdateChallengeDTO updateChallengeDto)
     {
-        await _challengeService.UpdateChallenge(updateChallengeDto);
+        var userId = _userService.GetCurrentUserNameIdentifier(User);
+        await _challengeService.UpdateChallenge(userId, updateChallengeDto);
         return Ok();
     }
         
