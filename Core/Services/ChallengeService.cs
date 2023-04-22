@@ -131,7 +131,8 @@ public class ChallengeService : IChallengeService
     {
         var challenge = await _challengeRepository.Query()
             .Where(c => c.Id == challengeId)
-            .Include(ch => ch.Frequency)
+            .Include(ch => ch.Subtasks)
+            .Include(ch => ch.Visibility)
             .Include(ch => ch.Unit)
             .Include(ch => ch.CreatedBy)
             .FirstOrDefaultAsync();
