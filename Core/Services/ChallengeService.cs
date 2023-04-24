@@ -61,16 +61,16 @@ public class ChallengeService : IChallengeService
             sub = (await _subtaskRepository.AddRangeAsync(subtasks!)).ToList();
             await _subtaskRepository.SaveChangesAsync();
         }
-        await CreateDailyTasksByChallenge(challenge, sub);
+        await CreateDailyTasksByChallenge(challenge, sub, challenge.StartDate, challenge.EndDate);
     }
 
     private async Task CreateDailyTasksByChallenge(
         Challenge challenge,
-        List<Subtask> subtasks
+        List<Subtask> subtasks,
+        DateTimeOffset startDate,
+        DateTimeOffset endDate
         )
     {
-        var startDate = challenge.StartDate.Date;
-        var endDate = challenge.EndDate;
         var days = (endDate - startDate).Days + 1;
             
         for (var i = 0; i < days; i++)
@@ -105,13 +105,62 @@ public class ChallengeService : IChallengeService
         await _dailyTaskRepository.SaveChangesAsync();
     }
 
+    // public async Task UpdateChallenge(string userId, UpdateChallengeDTO updateChallengeDto)
+    // {
+    //     var user = await _userService.GetUserById(userId);
+    //     var challenge = _mapper.Map<Challenge>(updateChallengeDto);
+    //     challenge.CreatedById = user.Id;
+    //     await _challengeRepository.UpdateAsync(challenge);
+    //     await _challengeRepository.SaveChangesAsync();
+    // }
+
     public async Task UpdateChallenge(string userId, UpdateChallengeDTO updateChallengeDto)
     {
-        var user = await _userService.GetUserById(userId);
-        var challenge = _mapper.Map<Challenge>(updateChallengeDto);
-        challenge.CreatedById = user.Id;
+        var oldChallenge = await _challengeRepository.GetByIdAsync(updateChallengeDto.Id);
+        var challenge = oldChallenge;
+        challenge.Title = updateChallengeDto.Title;
+        challenge.Description = updateChallengeDto.Description;
+        challenge.CountOfUnits = updateChallengeDto.CountOfUnits;
+        challenge.UnitId = updateChallengeDto.UnitId;
+        challenge.Color = updateChallengeDto.Color;
+        challenge.IconName = updateChallengeDto.IconName;
+        challenge.StartDate = updateChallengeDto.StartDate;
+        challenge.EndDate = updateChallengeDto.EndDate;
+
         await _challengeRepository.UpdateAsync(challenge);
         await _challengeRepository.SaveChangesAsync();
+        
+        if (challenge.StartDate.Date > oldChallenge.StartDate.Date)
+        {
+            var extraDailyTasks = await _dailyTaskRepository.Query()
+                .Where(t => t.AssignedDate.Date < challenge.StartDate)
+                .ToListAsync();
+            await _dailyTaskRepository.DeleteRange(extraDailyTasks);
+            await _dailyTaskRepository.SaveChangesAsync();
+        }
+        else if (challenge.StartDate.Date < oldChallenge.StartDate)
+        {
+            await CreateDailyTasksByChallenge(
+                challenge,
+                challenge.Subtasks.ToList(),
+                challenge.StartDate,
+                oldChallenge.StartDate.AddDays(-1)
+            );
+        }
+
+        if (challenge.CountOfUnits != oldChallenge.CountOfUnits)
+        {
+            var dailyTasks = await _dailyTaskRepository.Query()
+                .Where(t => t.ChallengeId == challenge.Id).ToListAsync();
+            foreach (var task in dailyTasks)
+            {
+                task.IsDone = task.CountOfUnitsDone >= challenge.CountOfUnits;
+                await _dailyTaskRepository.UpdateAsync(task);
+            }
+
+            await _dailyTaskRepository.SaveChangesAsync();
+        }
+
     }
 
     public async Task DeleteChallenge(int challengeId)
