@@ -133,7 +133,8 @@ public class ChallengeService : IChallengeService
         if (challenge.StartDate.Date > oldChallenge.StartDate.Date)
         {
             var extraDailyTasks = await _dailyTaskRepository.Query()
-                .Where(t => t.AssignedDate.Date < challenge.StartDate)
+                .Where(t => t.ChallengeId == challenge.Id && 
+                            t.AssignedDate.Date < challenge.StartDate)
                 .ToListAsync();
             await _dailyTaskRepository.DeleteRange(extraDailyTasks);
             await _dailyTaskRepository.SaveChangesAsync();
@@ -146,6 +147,25 @@ public class ChallengeService : IChallengeService
                 challenge.StartDate,
                 oldChallenge.StartDate.AddDays(-1)
             );
+        }
+
+        if (challenge.EndDate > oldChallenge.EndDate)
+        {
+            await CreateDailyTasksByChallenge(
+                challenge,
+                challenge.Subtasks.ToList(),
+                oldChallenge.EndDate.AddDays(1),
+                challenge.EndDate
+            );
+        }
+        else if (challenge.EndDate < oldChallenge.EndDate)
+        {
+            var extraDailyTasks = await _dailyTaskRepository.Query()
+                .Where(t => t.ChallengeId == challenge.Id && 
+                            t.AssignedDate.Date > challenge.EndDate)
+                .ToListAsync();
+            await _dailyTaskRepository.DeleteRange(extraDailyTasks);
+            await _dailyTaskRepository.SaveChangesAsync();
         }
 
         if (challenge.CountOfUnits != oldChallenge.CountOfUnits)
