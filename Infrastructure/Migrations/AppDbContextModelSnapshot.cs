@@ -111,13 +111,13 @@ namespace Infrastructure.Migrations
                             ChallengeTypeId = 1,
                             Color = "#8CEF73",
                             CountOfUnits = 500,
-                            CreatedById = "317019c7-affb-4721-b088-03c0edb892fd",
+                            CreatedById = "81a2a998-6922-4cd9-ba36-b449a34a766a",
                             Description = "Water is vital for healthy life. So, I need to drink it enough!",
-                            EndDate = new DateTimeOffset(new DateTime(2023, 5, 10, 23, 48, 2, 45, DateTimeKind.Unspecified).AddTicks(3761), new TimeSpan(0, 3, 0, 0, 0)),
+                            EndDate = new DateTimeOffset(new DateTime(2023, 5, 23, 18, 22, 10, 745, DateTimeKind.Unspecified).AddTicks(2277), new TimeSpan(0, 3, 0, 0, 0)),
                             Frequency = "1111100",
                             IconName = "mdiWaterCheck",
                             IsCompleted = false,
-                            StartDate = new DateTimeOffset(new DateTime(2023, 4, 19, 23, 48, 2, 45, DateTimeKind.Unspecified).AddTicks(2413), new TimeSpan(0, 3, 0, 0, 0)),
+                            StartDate = new DateTimeOffset(new DateTime(2023, 5, 2, 18, 22, 10, 745, DateTimeKind.Unspecified).AddTicks(239), new TimeSpan(0, 3, 0, 0, 0)),
                             Title = "Drink Water",
                             UnitId = 5,
                             VisibilityId = 1
@@ -128,13 +128,13 @@ namespace Infrastructure.Migrations
                             ChallengeTypeId = 1,
                             Color = "#8CEF73",
                             CountOfUnits = 500,
-                            CreatedById = "d040ca2a-d137-4723-804a-d54c8060c121",
+                            CreatedById = "8526c845-e7be-4844-adbd-d512656409cc",
                             Description = "Water is vital for healthy life. So, I need to drink it enough!",
-                            EndDate = new DateTimeOffset(new DateTime(2023, 5, 10, 23, 48, 2, 45, DateTimeKind.Unspecified).AddTicks(4721), new TimeSpan(0, 3, 0, 0, 0)),
+                            EndDate = new DateTimeOffset(new DateTime(2023, 5, 23, 18, 22, 10, 745, DateTimeKind.Unspecified).AddTicks(3689), new TimeSpan(0, 3, 0, 0, 0)),
                             Frequency = "1111100",
                             IconName = "mdiWaterCheck",
                             IsCompleted = false,
-                            StartDate = new DateTimeOffset(new DateTime(2023, 4, 19, 23, 48, 2, 45, DateTimeKind.Unspecified).AddTicks(4703), new TimeSpan(0, 3, 0, 0, 0)),
+                            StartDate = new DateTimeOffset(new DateTime(2023, 5, 2, 18, 22, 10, 745, DateTimeKind.Unspecified).AddTicks(3666), new TimeSpan(0, 3, 0, 0, 0)),
                             Title = "Drink Water",
                             UnitId = 5,
                             VisibilityId = 1
@@ -145,13 +145,13 @@ namespace Infrastructure.Migrations
                             ChallengeTypeId = 1,
                             Color = "#FEFA95",
                             CountOfUnits = 15,
-                            CreatedById = "317019c7-affb-4721-b088-03c0edb892fd",
+                            CreatedById = "81a2a998-6922-4cd9-ba36-b449a34a766a",
                             Description = "",
-                            EndDate = new DateTimeOffset(new DateTime(2023, 5, 10, 23, 48, 2, 45, DateTimeKind.Unspecified).AddTicks(4741), new TimeSpan(0, 3, 0, 0, 0)),
+                            EndDate = new DateTimeOffset(new DateTime(2023, 5, 23, 18, 22, 10, 745, DateTimeKind.Unspecified).AddTicks(3718), new TimeSpan(0, 3, 0, 0, 0)),
                             Frequency = "1101100",
                             IconName = "mdiRunFast",
                             IsCompleted = false,
-                            StartDate = new DateTimeOffset(new DateTime(2023, 4, 19, 23, 48, 2, 45, DateTimeKind.Unspecified).AddTicks(4738), new TimeSpan(0, 3, 0, 0, 0)),
+                            StartDate = new DateTimeOffset(new DateTime(2023, 5, 2, 18, 22, 10, 745, DateTimeKind.Unspecified).AddTicks(3713), new TimeSpan(0, 3, 0, 0, 0)),
                             Title = "Run",
                             UnitId = 2,
                             VisibilityId = 1
@@ -162,13 +162,13 @@ namespace Infrastructure.Migrations
                             ChallengeTypeId = 1,
                             Color = "#FEFA95",
                             CountOfUnits = 15,
-                            CreatedById = "d040ca2a-d137-4723-804a-d54c8060c121",
+                            CreatedById = "8526c845-e7be-4844-adbd-d512656409cc",
                             Description = "",
-                            EndDate = new DateTimeOffset(new DateTime(2023, 5, 10, 23, 48, 2, 45, DateTimeKind.Unspecified).AddTicks(4750), new TimeSpan(0, 3, 0, 0, 0)),
+                            EndDate = new DateTimeOffset(new DateTime(2023, 5, 23, 18, 22, 10, 745, DateTimeKind.Unspecified).AddTicks(3732), new TimeSpan(0, 3, 0, 0, 0)),
                             Frequency = "1101100",
                             IconName = "mdiRunFast",
                             IsCompleted = false,
-                            StartDate = new DateTimeOffset(new DateTime(2023, 4, 19, 23, 48, 2, 45, DateTimeKind.Unspecified).AddTicks(4747), new TimeSpan(0, 3, 0, 0, 0)),
+                            StartDate = new DateTimeOffset(new DateTime(2023, 5, 2, 18, 22, 10, 745, DateTimeKind.Unspecified).AddTicks(3726), new TimeSpan(0, 3, 0, 0, 0)),
                             Title = "Run",
                             UnitId = 2,
                             VisibilityId = 1
@@ -212,8 +212,8 @@ namespace Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<DateTime>("AssignedDate")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset>("AssignedDate")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<int>("ChallengeId")
                         .HasColumnType("int");
@@ -241,7 +241,7 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            AssignedDate = new DateTime(2023, 4, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AssignedDate = new DateTimeOffset(new DateTime(2023, 5, 2, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 3, 0, 0, 0)),
                             ChallengeId = 1,
                             CountOfUnitsDone = 0,
                             IsDone = false
@@ -249,7 +249,7 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 2,
-                            AssignedDate = new DateTime(2023, 4, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AssignedDate = new DateTimeOffset(new DateTime(2023, 5, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 3, 0, 0, 0)),
                             ChallengeId = 1,
                             CountOfUnitsDone = 0,
                             IsDone = false
@@ -257,7 +257,7 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 3,
-                            AssignedDate = new DateTime(2023, 4, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AssignedDate = new DateTimeOffset(new DateTime(2023, 5, 4, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 3, 0, 0, 0)),
                             ChallengeId = 1,
                             CountOfUnitsDone = 0,
                             IsDone = false
@@ -265,7 +265,7 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 4,
-                            AssignedDate = new DateTime(2023, 4, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AssignedDate = new DateTimeOffset(new DateTime(2023, 5, 7, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 3, 0, 0, 0)),
                             ChallengeId = 1,
                             CountOfUnitsDone = 0,
                             IsDone = false
@@ -273,7 +273,7 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 5,
-                            AssignedDate = new DateTime(2023, 4, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AssignedDate = new DateTimeOffset(new DateTime(2023, 5, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 3, 0, 0, 0)),
                             ChallengeId = 1,
                             CountOfUnitsDone = 0,
                             IsDone = false
@@ -281,7 +281,7 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 6,
-                            AssignedDate = new DateTime(2023, 4, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AssignedDate = new DateTimeOffset(new DateTime(2023, 5, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 3, 0, 0, 0)),
                             ChallengeId = 1,
                             CountOfUnitsDone = 0,
                             IsDone = false
@@ -289,7 +289,7 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 7,
-                            AssignedDate = new DateTime(2023, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AssignedDate = new DateTimeOffset(new DateTime(2023, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 3, 0, 0, 0)),
                             ChallengeId = 1,
                             CountOfUnitsDone = 0,
                             IsDone = false
@@ -297,7 +297,7 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 8,
-                            AssignedDate = new DateTime(2023, 4, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AssignedDate = new DateTimeOffset(new DateTime(2023, 5, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 3, 0, 0, 0)),
                             ChallengeId = 1,
                             CountOfUnitsDone = 0,
                             IsDone = false
@@ -305,7 +305,7 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 9,
-                            AssignedDate = new DateTime(2023, 4, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AssignedDate = new DateTimeOffset(new DateTime(2023, 5, 14, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 3, 0, 0, 0)),
                             ChallengeId = 1,
                             CountOfUnitsDone = 0,
                             IsDone = false
@@ -313,7 +313,7 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 10,
-                            AssignedDate = new DateTime(2023, 4, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AssignedDate = new DateTimeOffset(new DateTime(2023, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 3, 0, 0, 0)),
                             ChallengeId = 1,
                             CountOfUnitsDone = 0,
                             IsDone = false
@@ -321,7 +321,7 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 11,
-                            AssignedDate = new DateTime(2023, 4, 29, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AssignedDate = new DateTimeOffset(new DateTime(2023, 5, 16, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 3, 0, 0, 0)),
                             ChallengeId = 1,
                             CountOfUnitsDone = 0,
                             IsDone = false
@@ -329,7 +329,7 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 12,
-                            AssignedDate = new DateTime(2023, 4, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AssignedDate = new DateTimeOffset(new DateTime(2023, 5, 17, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 3, 0, 0, 0)),
                             ChallengeId = 1,
                             CountOfUnitsDone = 0,
                             IsDone = false
@@ -337,7 +337,7 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 13,
-                            AssignedDate = new DateTime(2023, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AssignedDate = new DateTimeOffset(new DateTime(2023, 5, 18, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 3, 0, 0, 0)),
                             ChallengeId = 1,
                             CountOfUnitsDone = 0,
                             IsDone = false
@@ -345,7 +345,7 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 14,
-                            AssignedDate = new DateTime(2023, 5, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AssignedDate = new DateTimeOffset(new DateTime(2023, 5, 21, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 3, 0, 0, 0)),
                             ChallengeId = 1,
                             CountOfUnitsDone = 0,
                             IsDone = false
@@ -353,7 +353,7 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 15,
-                            AssignedDate = new DateTime(2023, 5, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AssignedDate = new DateTimeOffset(new DateTime(2023, 5, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 3, 0, 0, 0)),
                             ChallengeId = 1,
                             CountOfUnitsDone = 0,
                             IsDone = false
@@ -361,7 +361,7 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 16,
-                            AssignedDate = new DateTime(2023, 5, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AssignedDate = new DateTimeOffset(new DateTime(2023, 5, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 3, 0, 0, 0)),
                             ChallengeId = 1,
                             CountOfUnitsDone = 0,
                             IsDone = false
@@ -369,55 +369,55 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 17,
-                            AssignedDate = new DateTime(2023, 5, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ChallengeId = 1,
+                            AssignedDate = new DateTimeOffset(new DateTime(2023, 5, 2, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 3, 0, 0, 0)),
+                            ChallengeId = 2,
                             CountOfUnitsDone = 0,
                             IsDone = false
                         },
                         new
                         {
                             Id = 18,
-                            AssignedDate = new DateTime(2023, 5, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ChallengeId = 1,
+                            AssignedDate = new DateTimeOffset(new DateTime(2023, 5, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 3, 0, 0, 0)),
+                            ChallengeId = 2,
                             CountOfUnitsDone = 0,
                             IsDone = false
                         },
                         new
                         {
                             Id = 19,
-                            AssignedDate = new DateTime(2023, 5, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ChallengeId = 1,
+                            AssignedDate = new DateTimeOffset(new DateTime(2023, 5, 4, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 3, 0, 0, 0)),
+                            ChallengeId = 2,
                             CountOfUnitsDone = 0,
                             IsDone = false
                         },
                         new
                         {
                             Id = 20,
-                            AssignedDate = new DateTime(2023, 5, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ChallengeId = 1,
+                            AssignedDate = new DateTimeOffset(new DateTime(2023, 5, 7, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 3, 0, 0, 0)),
+                            ChallengeId = 2,
                             CountOfUnitsDone = 0,
                             IsDone = false
                         },
                         new
                         {
                             Id = 21,
-                            AssignedDate = new DateTime(2023, 5, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ChallengeId = 1,
+                            AssignedDate = new DateTimeOffset(new DateTime(2023, 5, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 3, 0, 0, 0)),
+                            ChallengeId = 2,
                             CountOfUnitsDone = 0,
                             IsDone = false
                         },
                         new
                         {
                             Id = 22,
-                            AssignedDate = new DateTime(2023, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ChallengeId = 1,
+                            AssignedDate = new DateTimeOffset(new DateTime(2023, 5, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 3, 0, 0, 0)),
+                            ChallengeId = 2,
                             CountOfUnitsDone = 0,
                             IsDone = false
                         },
                         new
                         {
                             Id = 23,
-                            AssignedDate = new DateTime(2023, 4, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AssignedDate = new DateTimeOffset(new DateTime(2023, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 3, 0, 0, 0)),
                             ChallengeId = 2,
                             CountOfUnitsDone = 0,
                             IsDone = false
@@ -425,7 +425,7 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 24,
-                            AssignedDate = new DateTime(2023, 4, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AssignedDate = new DateTimeOffset(new DateTime(2023, 5, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 3, 0, 0, 0)),
                             ChallengeId = 2,
                             CountOfUnitsDone = 0,
                             IsDone = false
@@ -433,7 +433,7 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 25,
-                            AssignedDate = new DateTime(2023, 4, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AssignedDate = new DateTimeOffset(new DateTime(2023, 5, 14, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 3, 0, 0, 0)),
                             ChallengeId = 2,
                             CountOfUnitsDone = 0,
                             IsDone = false
@@ -441,7 +441,7 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 26,
-                            AssignedDate = new DateTime(2023, 4, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AssignedDate = new DateTimeOffset(new DateTime(2023, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 3, 0, 0, 0)),
                             ChallengeId = 2,
                             CountOfUnitsDone = 0,
                             IsDone = false
@@ -449,7 +449,7 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 27,
-                            AssignedDate = new DateTime(2023, 4, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AssignedDate = new DateTimeOffset(new DateTime(2023, 5, 16, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 3, 0, 0, 0)),
                             ChallengeId = 2,
                             CountOfUnitsDone = 0,
                             IsDone = false
@@ -457,7 +457,7 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 28,
-                            AssignedDate = new DateTime(2023, 4, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AssignedDate = new DateTimeOffset(new DateTime(2023, 5, 17, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 3, 0, 0, 0)),
                             ChallengeId = 2,
                             CountOfUnitsDone = 0,
                             IsDone = false
@@ -465,7 +465,7 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 29,
-                            AssignedDate = new DateTime(2023, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AssignedDate = new DateTimeOffset(new DateTime(2023, 5, 18, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 3, 0, 0, 0)),
                             ChallengeId = 2,
                             CountOfUnitsDone = 0,
                             IsDone = false
@@ -473,7 +473,7 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 30,
-                            AssignedDate = new DateTime(2023, 4, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AssignedDate = new DateTimeOffset(new DateTime(2023, 5, 21, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 3, 0, 0, 0)),
                             ChallengeId = 2,
                             CountOfUnitsDone = 0,
                             IsDone = false
@@ -481,7 +481,7 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 31,
-                            AssignedDate = new DateTime(2023, 4, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AssignedDate = new DateTimeOffset(new DateTime(2023, 5, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 3, 0, 0, 0)),
                             ChallengeId = 2,
                             CountOfUnitsDone = 0,
                             IsDone = false
@@ -489,7 +489,7 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 32,
-                            AssignedDate = new DateTime(2023, 4, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AssignedDate = new DateTimeOffset(new DateTime(2023, 5, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 3, 0, 0, 0)),
                             ChallengeId = 2,
                             CountOfUnitsDone = 0,
                             IsDone = false
@@ -497,447 +497,191 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 33,
-                            AssignedDate = new DateTime(2023, 4, 29, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ChallengeId = 2,
+                            AssignedDate = new DateTimeOffset(new DateTime(2023, 5, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 3, 0, 0, 0)),
+                            ChallengeId = 3,
                             CountOfUnitsDone = 0,
                             IsDone = false
                         },
                         new
                         {
                             Id = 34,
-                            AssignedDate = new DateTime(2023, 4, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ChallengeId = 2,
+                            AssignedDate = new DateTimeOffset(new DateTime(2023, 5, 4, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 3, 0, 0, 0)),
+                            ChallengeId = 3,
                             CountOfUnitsDone = 0,
                             IsDone = false
                         },
                         new
                         {
                             Id = 35,
-                            AssignedDate = new DateTime(2023, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ChallengeId = 2,
+                            AssignedDate = new DateTimeOffset(new DateTime(2023, 5, 7, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 3, 0, 0, 0)),
+                            ChallengeId = 3,
                             CountOfUnitsDone = 0,
                             IsDone = false
                         },
                         new
                         {
                             Id = 36,
-                            AssignedDate = new DateTime(2023, 5, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ChallengeId = 2,
+                            AssignedDate = new DateTimeOffset(new DateTime(2023, 5, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 3, 0, 0, 0)),
+                            ChallengeId = 3,
                             CountOfUnitsDone = 0,
                             IsDone = false
                         },
                         new
                         {
                             Id = 37,
-                            AssignedDate = new DateTime(2023, 5, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ChallengeId = 2,
+                            AssignedDate = new DateTimeOffset(new DateTime(2023, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 3, 0, 0, 0)),
+                            ChallengeId = 3,
                             CountOfUnitsDone = 0,
                             IsDone = false
                         },
                         new
                         {
                             Id = 38,
-                            AssignedDate = new DateTime(2023, 5, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ChallengeId = 2,
+                            AssignedDate = new DateTimeOffset(new DateTime(2023, 5, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 3, 0, 0, 0)),
+                            ChallengeId = 3,
                             CountOfUnitsDone = 0,
                             IsDone = false
                         },
                         new
                         {
                             Id = 39,
-                            AssignedDate = new DateTime(2023, 5, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ChallengeId = 2,
+                            AssignedDate = new DateTimeOffset(new DateTime(2023, 5, 14, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 3, 0, 0, 0)),
+                            ChallengeId = 3,
                             CountOfUnitsDone = 0,
                             IsDone = false
                         },
                         new
                         {
                             Id = 40,
-                            AssignedDate = new DateTime(2023, 5, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ChallengeId = 2,
+                            AssignedDate = new DateTimeOffset(new DateTime(2023, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 3, 0, 0, 0)),
+                            ChallengeId = 3,
                             CountOfUnitsDone = 0,
                             IsDone = false
                         },
                         new
                         {
                             Id = 41,
-                            AssignedDate = new DateTime(2023, 5, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ChallengeId = 2,
+                            AssignedDate = new DateTimeOffset(new DateTime(2023, 5, 17, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 3, 0, 0, 0)),
+                            ChallengeId = 3,
                             CountOfUnitsDone = 0,
                             IsDone = false
                         },
                         new
                         {
                             Id = 42,
-                            AssignedDate = new DateTime(2023, 5, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ChallengeId = 2,
+                            AssignedDate = new DateTimeOffset(new DateTime(2023, 5, 18, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 3, 0, 0, 0)),
+                            ChallengeId = 3,
                             CountOfUnitsDone = 0,
                             IsDone = false
                         },
                         new
                         {
                             Id = 43,
-                            AssignedDate = new DateTime(2023, 5, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ChallengeId = 2,
+                            AssignedDate = new DateTimeOffset(new DateTime(2023, 5, 21, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 3, 0, 0, 0)),
+                            ChallengeId = 3,
                             CountOfUnitsDone = 0,
                             IsDone = false
                         },
                         new
                         {
                             Id = 44,
-                            AssignedDate = new DateTime(2023, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ChallengeId = 2,
+                            AssignedDate = new DateTimeOffset(new DateTime(2023, 5, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 3, 0, 0, 0)),
+                            ChallengeId = 3,
                             CountOfUnitsDone = 0,
                             IsDone = false
                         },
                         new
                         {
                             Id = 45,
-                            AssignedDate = new DateTime(2023, 4, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ChallengeId = 3,
+                            AssignedDate = new DateTimeOffset(new DateTime(2023, 5, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 3, 0, 0, 0)),
+                            ChallengeId = 4,
                             CountOfUnitsDone = 0,
                             IsDone = false
                         },
                         new
                         {
                             Id = 46,
-                            AssignedDate = new DateTime(2023, 4, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ChallengeId = 3,
+                            AssignedDate = new DateTimeOffset(new DateTime(2023, 5, 4, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 3, 0, 0, 0)),
+                            ChallengeId = 4,
                             CountOfUnitsDone = 0,
                             IsDone = false
                         },
                         new
                         {
                             Id = 47,
-                            AssignedDate = new DateTime(2023, 4, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ChallengeId = 3,
+                            AssignedDate = new DateTimeOffset(new DateTime(2023, 5, 7, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 3, 0, 0, 0)),
+                            ChallengeId = 4,
                             CountOfUnitsDone = 0,
                             IsDone = false
                         },
                         new
                         {
                             Id = 48,
-                            AssignedDate = new DateTime(2023, 4, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ChallengeId = 3,
+                            AssignedDate = new DateTimeOffset(new DateTime(2023, 5, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 3, 0, 0, 0)),
+                            ChallengeId = 4,
                             CountOfUnitsDone = 0,
                             IsDone = false
                         },
                         new
                         {
                             Id = 49,
-                            AssignedDate = new DateTime(2023, 4, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ChallengeId = 3,
+                            AssignedDate = new DateTimeOffset(new DateTime(2023, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 3, 0, 0, 0)),
+                            ChallengeId = 4,
                             CountOfUnitsDone = 0,
                             IsDone = false
                         },
                         new
                         {
                             Id = 50,
-                            AssignedDate = new DateTime(2023, 4, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ChallengeId = 3,
+                            AssignedDate = new DateTimeOffset(new DateTime(2023, 5, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 3, 0, 0, 0)),
+                            ChallengeId = 4,
                             CountOfUnitsDone = 0,
                             IsDone = false
                         },
                         new
                         {
                             Id = 51,
-                            AssignedDate = new DateTime(2023, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ChallengeId = 3,
+                            AssignedDate = new DateTimeOffset(new DateTime(2023, 5, 14, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 3, 0, 0, 0)),
+                            ChallengeId = 4,
                             CountOfUnitsDone = 0,
                             IsDone = false
                         },
                         new
                         {
                             Id = 52,
-                            AssignedDate = new DateTime(2023, 4, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ChallengeId = 3,
+                            AssignedDate = new DateTimeOffset(new DateTime(2023, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 3, 0, 0, 0)),
+                            ChallengeId = 4,
                             CountOfUnitsDone = 0,
                             IsDone = false
                         },
                         new
                         {
                             Id = 53,
-                            AssignedDate = new DateTime(2023, 4, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ChallengeId = 3,
+                            AssignedDate = new DateTimeOffset(new DateTime(2023, 5, 17, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 3, 0, 0, 0)),
+                            ChallengeId = 4,
                             CountOfUnitsDone = 0,
                             IsDone = false
                         },
                         new
                         {
                             Id = 54,
-                            AssignedDate = new DateTime(2023, 4, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ChallengeId = 3,
+                            AssignedDate = new DateTimeOffset(new DateTime(2023, 5, 18, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 3, 0, 0, 0)),
+                            ChallengeId = 4,
                             CountOfUnitsDone = 0,
                             IsDone = false
                         },
                         new
                         {
                             Id = 55,
-                            AssignedDate = new DateTime(2023, 4, 29, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ChallengeId = 3,
+                            AssignedDate = new DateTimeOffset(new DateTime(2023, 5, 21, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 3, 0, 0, 0)),
+                            ChallengeId = 4,
                             CountOfUnitsDone = 0,
                             IsDone = false
                         },
                         new
                         {
                             Id = 56,
-                            AssignedDate = new DateTime(2023, 4, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ChallengeId = 3,
-                            CountOfUnitsDone = 0,
-                            IsDone = false
-                        },
-                        new
-                        {
-                            Id = 57,
-                            AssignedDate = new DateTime(2023, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ChallengeId = 3,
-                            CountOfUnitsDone = 0,
-                            IsDone = false
-                        },
-                        new
-                        {
-                            Id = 58,
-                            AssignedDate = new DateTime(2023, 5, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ChallengeId = 3,
-                            CountOfUnitsDone = 0,
-                            IsDone = false
-                        },
-                        new
-                        {
-                            Id = 59,
-                            AssignedDate = new DateTime(2023, 5, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ChallengeId = 3,
-                            CountOfUnitsDone = 0,
-                            IsDone = false
-                        },
-                        new
-                        {
-                            Id = 60,
-                            AssignedDate = new DateTime(2023, 5, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ChallengeId = 3,
-                            CountOfUnitsDone = 0,
-                            IsDone = false
-                        },
-                        new
-                        {
-                            Id = 61,
-                            AssignedDate = new DateTime(2023, 5, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ChallengeId = 3,
-                            CountOfUnitsDone = 0,
-                            IsDone = false
-                        },
-                        new
-                        {
-                            Id = 62,
-                            AssignedDate = new DateTime(2023, 5, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ChallengeId = 3,
-                            CountOfUnitsDone = 0,
-                            IsDone = false
-                        },
-                        new
-                        {
-                            Id = 63,
-                            AssignedDate = new DateTime(2023, 5, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ChallengeId = 3,
-                            CountOfUnitsDone = 0,
-                            IsDone = false
-                        },
-                        new
-                        {
-                            Id = 64,
-                            AssignedDate = new DateTime(2023, 5, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ChallengeId = 3,
-                            CountOfUnitsDone = 0,
-                            IsDone = false
-                        },
-                        new
-                        {
-                            Id = 65,
-                            AssignedDate = new DateTime(2023, 5, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ChallengeId = 3,
-                            CountOfUnitsDone = 0,
-                            IsDone = false
-                        },
-                        new
-                        {
-                            Id = 66,
-                            AssignedDate = new DateTime(2023, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ChallengeId = 3,
-                            CountOfUnitsDone = 0,
-                            IsDone = false
-                        },
-                        new
-                        {
-                            Id = 67,
-                            AssignedDate = new DateTime(2023, 4, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ChallengeId = 4,
-                            CountOfUnitsDone = 0,
-                            IsDone = false
-                        },
-                        new
-                        {
-                            Id = 68,
-                            AssignedDate = new DateTime(2023, 4, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ChallengeId = 4,
-                            CountOfUnitsDone = 0,
-                            IsDone = false
-                        },
-                        new
-                        {
-                            Id = 69,
-                            AssignedDate = new DateTime(2023, 4, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ChallengeId = 4,
-                            CountOfUnitsDone = 0,
-                            IsDone = false
-                        },
-                        new
-                        {
-                            Id = 70,
-                            AssignedDate = new DateTime(2023, 4, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ChallengeId = 4,
-                            CountOfUnitsDone = 0,
-                            IsDone = false
-                        },
-                        new
-                        {
-                            Id = 71,
-                            AssignedDate = new DateTime(2023, 4, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ChallengeId = 4,
-                            CountOfUnitsDone = 0,
-                            IsDone = false
-                        },
-                        new
-                        {
-                            Id = 72,
-                            AssignedDate = new DateTime(2023, 4, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ChallengeId = 4,
-                            CountOfUnitsDone = 0,
-                            IsDone = false
-                        },
-                        new
-                        {
-                            Id = 73,
-                            AssignedDate = new DateTime(2023, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ChallengeId = 4,
-                            CountOfUnitsDone = 0,
-                            IsDone = false
-                        },
-                        new
-                        {
-                            Id = 74,
-                            AssignedDate = new DateTime(2023, 4, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ChallengeId = 4,
-                            CountOfUnitsDone = 0,
-                            IsDone = false
-                        },
-                        new
-                        {
-                            Id = 75,
-                            AssignedDate = new DateTime(2023, 4, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ChallengeId = 4,
-                            CountOfUnitsDone = 0,
-                            IsDone = false
-                        },
-                        new
-                        {
-                            Id = 76,
-                            AssignedDate = new DateTime(2023, 4, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ChallengeId = 4,
-                            CountOfUnitsDone = 0,
-                            IsDone = false
-                        },
-                        new
-                        {
-                            Id = 77,
-                            AssignedDate = new DateTime(2023, 4, 29, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ChallengeId = 4,
-                            CountOfUnitsDone = 0,
-                            IsDone = false
-                        },
-                        new
-                        {
-                            Id = 78,
-                            AssignedDate = new DateTime(2023, 4, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ChallengeId = 4,
-                            CountOfUnitsDone = 0,
-                            IsDone = false
-                        },
-                        new
-                        {
-                            Id = 79,
-                            AssignedDate = new DateTime(2023, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ChallengeId = 4,
-                            CountOfUnitsDone = 0,
-                            IsDone = false
-                        },
-                        new
-                        {
-                            Id = 80,
-                            AssignedDate = new DateTime(2023, 5, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ChallengeId = 4,
-                            CountOfUnitsDone = 0,
-                            IsDone = false
-                        },
-                        new
-                        {
-                            Id = 81,
-                            AssignedDate = new DateTime(2023, 5, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ChallengeId = 4,
-                            CountOfUnitsDone = 0,
-                            IsDone = false
-                        },
-                        new
-                        {
-                            Id = 82,
-                            AssignedDate = new DateTime(2023, 5, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ChallengeId = 4,
-                            CountOfUnitsDone = 0,
-                            IsDone = false
-                        },
-                        new
-                        {
-                            Id = 83,
-                            AssignedDate = new DateTime(2023, 5, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ChallengeId = 4,
-                            CountOfUnitsDone = 0,
-                            IsDone = false
-                        },
-                        new
-                        {
-                            Id = 84,
-                            AssignedDate = new DateTime(2023, 5, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ChallengeId = 4,
-                            CountOfUnitsDone = 0,
-                            IsDone = false
-                        },
-                        new
-                        {
-                            Id = 85,
-                            AssignedDate = new DateTime(2023, 5, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ChallengeId = 4,
-                            CountOfUnitsDone = 0,
-                            IsDone = false
-                        },
-                        new
-                        {
-                            Id = 86,
-                            AssignedDate = new DateTime(2023, 5, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ChallengeId = 4,
-                            CountOfUnitsDone = 0,
-                            IsDone = false
-                        },
-                        new
-                        {
-                            Id = 87,
-                            AssignedDate = new DateTime(2023, 5, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ChallengeId = 4,
-                            CountOfUnitsDone = 0,
-                            IsDone = false
-                        },
-                        new
-                        {
-                            Id = 88,
-                            AssignedDate = new DateTime(2023, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AssignedDate = new DateTimeOffset(new DateTime(2023, 5, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 3, 0, 0, 0)),
                             ChallengeId = 4,
                             CountOfUnitsDone = 0,
                             IsDone = false
@@ -1309,104 +1053,104 @@ namespace Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "d040ca2a-d137-4723-804a-d54c8060c121",
+                            Id = "8526c845-e7be-4844-adbd-d512656409cc",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "7a8dc252-8c31-4034-817e-16db3b94d789",
+                            ConcurrencyStamp = "d9ec33dd-5e80-4ccf-8e19-f187eb63444b",
                             Email = "anna.korolchuk@oa.edu.ua",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ANNA.KOROLCHUK@OA.EDU.UA",
                             NormalizedUserName = "ANNA.KOROLCHUK@OA.EDU.UA",
-                            PasswordHash = "AQAAAAEAACcQAAAAEKb2Jil+6y1969odLMwfvrUmXRiU5AfACQs3XN+2ezCtsMKDOf3YC3GoCegbLNk+AA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEFudCFAoB+hlNmb/NyptFmxfgm3Zl8vm+5LNj5Vx0B3oxfWR6+dFYAezZMN6dt448g==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "7ee67958-8593-4b17-8f53-788ab83b51bf",
+                            SecurityStamp = "21ce0b7e-a765-4dc3-b1ad-7cc522490426",
                             TwoFactorEnabled = false,
                             UserName = "a_korolchuk",
                             Points = 0
                         },
                         new
                         {
-                            Id = "317019c7-affb-4721-b088-03c0edb892fd",
+                            Id = "81a2a998-6922-4cd9-ba36-b449a34a766a",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "55b792a2-2d80-41bc-b530-9b3e3800e03e",
+                            ConcurrencyStamp = "38bccebb-9a16-4253-8a26-8ab7b6988c0a",
                             Email = "antonina.loboda@oa.edu.ua",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ANTONINA.LOBODA@OA.EDU.UA",
                             NormalizedUserName = "ANTONINA.LOBODA@OA.EDU.UA",
-                            PasswordHash = "AQAAAAEAACcQAAAAEFuNG7m0dz7bSCXcQoxiCIBEggbTWrOVWrJ3EQvZ0kMdgQIeg3vZyhpPx/tGqKJttQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBGqLKbJw2OMQC09TB10aXTCvTLHCM3xuCPa5DcImqenZ84FtTFWqwF4jKtHMtzApQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "55368574-ab92-4e40-863a-ec7e59aae95f",
+                            SecurityStamp = "ea001771-eeff-4418-911a-911fcd128f83",
                             TwoFactorEnabled = false,
                             UserName = "ton4ik",
                             Points = 0
                         },
                         new
                         {
-                            Id = "2d63186a-b5fc-4080-a630-f37b5b84ee54",
+                            Id = "0f62a9d4-941b-467f-b7e6-f73b09776829",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9464e34d-8b4d-4ed9-8f98-76a626bce933",
-                            Email = "Tomas.Parker@gmail.com",
+                            ConcurrencyStamp = "35a24b9f-7ce9-4b2b-b249-038dcb733f7d",
+                            Email = "Hazel.Windler@yahoo.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            NormalizedEmail = "TOMAS.PARKER@GMAIL.COM",
-                            NormalizedUserName = "TOMAS.PARKER",
-                            PasswordHash = "AQAAAAEAACcQAAAAECVfyTky5/PTaSRaStKR4e9qd+jLlVTIOdUr5B5SVBITvVZvknSEnILRZ/hCfiSEuw==",
+                            NormalizedEmail = "HAZEL.WINDLER@YAHOO.COM",
+                            NormalizedUserName = "HAZEL.WINDLER54",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGhm4/v2BKI/HZYTNtpnNTRkbu2MxWRc62KQhpFqyUclM2U5yspYzsxs87Uza9eSUw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "b696c1de-c2ad-48f6-be64-46bf3250d4a2",
+                            SecurityStamp = "2d1c24a2-1ae0-4347-9d85-0b2bf24d3532",
                             TwoFactorEnabled = false,
-                            UserName = "Tomas.Parker",
+                            UserName = "Hazel.Windler54",
                             Points = 0
                         },
                         new
                         {
-                            Id = "af2eb052-90b7-4e48-b363-3da0bedfb9c8",
+                            Id = "ae7798fc-28c0-42fe-ac62-522f5ba98346",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "fb02b8fe-dd5d-44da-a90e-e6203c562bae",
-                            Email = "Clayton_Ward11@gmail.com",
+                            ConcurrencyStamp = "f52150be-e837-469c-a6fc-dd67d97ffd7a",
+                            Email = "Evelyn74@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            NormalizedEmail = "CLAYTON_WARD11@GMAIL.COM",
-                            NormalizedUserName = "CLAYTON.WARD94",
-                            PasswordHash = "AQAAAAEAACcQAAAAECQtboG+SvZIhp4iRQNzAN+RtjoZUDW8pftjhvu00oGJqVSb18KC8ku8iYmX5oqZ+w==",
+                            NormalizedEmail = "EVELYN74@GMAIL.COM",
+                            NormalizedUserName = "EVELYN19",
+                            PasswordHash = "AQAAAAEAACcQAAAAEOddig0JblU++PbYBZcPiuM3vcqKSToQEGfpfF3+r4sqSWUhfdlda04jqYW0px+T4A==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "d19bbc76-11f9-465b-9b83-fe6dfa51c866",
+                            SecurityStamp = "54bdb774-6147-49ea-a12c-5dd30e7bdbc1",
                             TwoFactorEnabled = false,
-                            UserName = "Clayton.Ward94",
+                            UserName = "Evelyn19",
                             Points = 0
                         },
                         new
                         {
-                            Id = "aca9c1c8-960e-468d-8de8-3dc9f35fb3f8",
+                            Id = "8e0b9c60-db77-4f6f-a533-0c06862c6885",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "1b316969-bc05-4989-9288-300b77ead96b",
-                            Email = "Jacob_Mitchell42@gmail.com",
+                            ConcurrencyStamp = "c3c2f021-4882-4c82-9520-86bd78a6d3b4",
+                            Email = "Isaac_Quitzon46@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            NormalizedEmail = "JACOB_MITCHELL42@GMAIL.COM",
-                            NormalizedUserName = "JACOB4",
-                            PasswordHash = "AQAAAAEAACcQAAAAENUHP56sbPmLCGe5qvHwiibtCF0vP7mESLjcm9GR6hYlA2lhla2fs2nQkpSB7kTnrg==",
+                            NormalizedEmail = "ISAAC_QUITZON46@GMAIL.COM",
+                            NormalizedUserName = "ISAAC.QUITZON38",
+                            PasswordHash = "AQAAAAEAACcQAAAAEAfBWOkDCPgEmhIE5031CnvilxzwAHu5+cRbrk7JV7H3mhhgoQ5bOOIOi0yN36TEkQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "565b7c29-4fc6-4f44-b1e3-5d73730970bf",
+                            SecurityStamp = "aec308e3-9118-43d6-9c27-3bd216e6e22f",
                             TwoFactorEnabled = false,
-                            UserName = "Jacob4",
+                            UserName = "Isaac.Quitzon38",
                             Points = 0
                         },
                         new
                         {
-                            Id = "98f58c84-c7d7-4852-ba2d-925fdb31ffc1",
+                            Id = "ee531384-2905-423d-b65b-8c913f89333a",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "2140e97b-2422-458a-8fca-133cd14d7ed3",
-                            Email = "Kim96@hotmail.com",
+                            ConcurrencyStamp = "8b9efb0d-23d3-4707-809c-011cf56ffd1a",
+                            Email = "Trevor.Bashirian25@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            NormalizedEmail = "KIM96@HOTMAIL.COM",
-                            NormalizedUserName = "KIM33",
-                            PasswordHash = "AQAAAAEAACcQAAAAEEE4OTbjcZ0Xmz3tycjtGWMsjIHRxAFwaWhDR7/1ikq40GJwtcSpVM5mh1TtRMvsOw==",
+                            NormalizedEmail = "TREVOR.BASHIRIAN25@GMAIL.COM",
+                            NormalizedUserName = "TREVOR30",
+                            PasswordHash = "AQAAAAEAACcQAAAAELPE1PkjK68LUhCB+o/srDEcqunFFKAltG90MSqmB9v2Htj+dmk6LRIvpJlf3Wf1sA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "32b186dc-7e58-474e-a0cc-bcb324d41c57",
+                            SecurityStamp = "f542193e-a320-4c41-b2e6-ba7620e7b73e",
                             TwoFactorEnabled = false,
-                            UserName = "Kim33",
+                            UserName = "Trevor30",
                             Points = 0
                         });
                 });

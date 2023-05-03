@@ -86,7 +86,7 @@ public class DailyTaskService : IDailyTaskService
     {
         var task = await _dailyTaskRepository.GetByIdAsync(addProgressDto.DailyTaskId);
         var sum = task.CountOfUnitsDone + addProgressDto.ProgressToAdd;
-        if (sum > addProgressDto.CountOfUnits) { return; }
+        if (sum > task.Challenge.CountOfUnits) { return; }
         task.CountOfUnitsDone += addProgressDto.ProgressToAdd;
         if (sum == addProgressDto.CountOfUnits)
         {
