@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
 using Core.Entities;
 using Core.Interfaces;
@@ -16,20 +12,19 @@ namespace Core.Services;
 public class DailyTaskService : IDailyTaskService
 {
     private readonly IRepository<DailyTask> _dailyTaskRepository;
-    private readonly UserManager<User> _userManager;
+    private readonly IRepository<Challenge> _challengeRepository;
     private readonly IChallengeService _challengeService;
     private readonly IMapper _mapper;
 
     public DailyTaskService(
         IRepository<DailyTask> dailyTaskRepository,
-        UserManager<User> userManager,
         IChallengeService challengeService,
-        IMapper mapper)
+        IMapper mapper, IRepository<Challenge> challengeRepository)
     {
         _dailyTaskRepository = dailyTaskRepository;
-        _userManager = userManager;
         _challengeService = challengeService;
         _mapper = mapper;
+        _challengeRepository = challengeRepository;
     }
 
     public async Task<List<GetDailyTaskDTO>> GetAllTasksForTodayByUser(string userId)
@@ -85,12 +80,34 @@ public class DailyTaskService : IDailyTaskService
     public async Task AddProgress(AddProgressDTO addProgressDto)
     {
         var task = await _dailyTaskRepository.GetByIdAsync(addProgressDto.DailyTaskId);
+        if (task.AssignedDate.Date > DateTimeOffset.Now.Date) return;
+        var challenge = await _challengeRepository.GetByIdAsync(task.ChallengeId);
+        if (task.SubtaskId == null)
+        {
+            if (challenge.Subtasks.Count != 0)
+            {
+                var dailySubTasks = await _dailyTaskRepository.Query()
+                    .Where(t => t.ChallengeId == task.ChallengeId && t.SubtaskId != null)
+                    .ToListAsync();
+                if (dailySubTasks.Any(dailySub => !dailySub.IsDone))
+                {
+                    return;
+                }
+            }
+        }
         var sum = task.CountOfUnitsDone + addProgressDto.ProgressToAdd;
-        if (sum > task.Challenge.CountOfUnits) { return; }
+        if (sum > addProgressDto.CountOfUnits) { return; }
         task.CountOfUnitsDone += addProgressDto.ProgressToAdd;
-        if (sum == addProgressDto.CountOfUnits)
+        if (sum >= addProgressDto.CountOfUnits)
         {
             task.IsDone = true;
+            if (challenge.EndDate.Date.Equals(task.AssignedDate.Date) 
+                && challenge.EndDate.Date.Equals(DateTimeOffset.Now.Date))
+            {
+                challenge.IsCompleted = true;
+                await _challengeRepository.UpdateAsync(challenge);
+                await _challengeRepository.SaveChangesAsync();
+            }
         }
         await _dailyTaskRepository.UpdateAsync(task);
         await _dailyTaskRepository.SaveChangesAsync();
@@ -101,14 +118,17 @@ public class DailyTaskService : IDailyTaskService
         var tasks = await _dailyTaskRepository.Query()
             .Where(t => t.ChallengeId == challengeId).ToListAsync();
         await _dailyTaskRepository.DeleteRange(tasks);
-        // await _dailyTaskRepository.SaveChangesAsync();
+        await _dailyTaskRepository.SaveChangesAsync();
     }
 
     public async Task RemoveProgress(int taskId)
     {
         var task = await _dailyTaskRepository.GetByIdAsync(taskId);
+        var challenge = await _challengeRepository.GetByIdAsync(task.ChallengeId);
         task.CountOfUnitsDone = 0;
         task.IsDone = false;
+        challenge.IsCompleted = false;
+        await _challengeRepository.UpdateAsync(challenge);
         await _dailyTaskRepository.UpdateAsync(task);
         await _dailyTaskRepository.SaveChangesAsync();
     }
