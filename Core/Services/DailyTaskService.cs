@@ -81,32 +81,56 @@ public class DailyTaskService : IDailyTaskService
     {
         var task = await _dailyTaskRepository.GetByIdAsync(addProgressDto.DailyTaskId);
         if (task.AssignedDate.Date > DateTimeOffset.Now.Date) return;
-        var challenge = await _challengeRepository.GetByIdAsync(task.ChallengeId);
-        if (task.SubtaskId == null)
-        {
-            if (challenge.Subtasks.Count != 0)
-            {
-                var dailySubTasks = await _dailyTaskRepository.Query()
-                    .Where(t => t.ChallengeId == task.ChallengeId && t.SubtaskId != null)
-                    .ToListAsync();
-                if (dailySubTasks.Any(dailySub => !dailySub.IsDone))
-                {
-                    return;
-                }
-            }
-        }
+        var challenge = await _challengeRepository.Query()
+            .Where(c => c.Id == task.ChallengeId)
+            .Include(c => c.Subtasks)
+            .FirstAsync();
+        
         var sum = task.CountOfUnitsDone + addProgressDto.ProgressToAdd;
-        if (sum > addProgressDto.CountOfUnits) { return; }
         task.CountOfUnitsDone += addProgressDto.ProgressToAdd;
         if (sum >= addProgressDto.CountOfUnits)
         {
-            task.IsDone = true;
-            if (challenge.EndDate.Date.Equals(task.AssignedDate.Date) 
-                && challenge.EndDate.Date.Equals(DateTimeOffset.Now.Date))
+            if (challenge.Subtasks.Count != 0)
             {
-                challenge.IsCompleted = true;
-                await _challengeRepository.UpdateAsync(challenge);
-                await _challengeRepository.SaveChangesAsync();
+                if (task.SubtaskId != null)
+                {
+                    task.IsDone = true;
+                    await _dailyTaskRepository.UpdateAsync(task);
+                    var date = task.AssignedDate;
+                    task = await _dailyTaskRepository.Query()
+                        .Where(t => t.ChallengeId == challenge.Id
+                                    && t.SubtaskId == null
+                                    && t.AssignedDate.Date == date.Date)
+                        .FirstAsync();
+                }
+                var dailySubTasks = await _dailyTaskRepository.Query()
+                    .Where(t => t.ChallengeId == task.ChallengeId 
+                                && t.SubtaskId != null 
+                                && t.AssignedDate == task.AssignedDate)
+                    .ToListAsync();
+                if (dailySubTasks.All(dailySub => dailySub.IsDone)
+                    && task.CountOfUnitsDone >= challenge.CountOfUnits)
+                {
+                    task.IsDone = true;
+                    if (challenge.EndDate.Date.Equals(task.AssignedDate.Date) 
+                        && challenge.EndDate.Date.Equals(DateTimeOffset.Now.Date))
+                    {
+                        challenge.IsCompleted = true;
+                        await _challengeRepository.UpdateAsync(challenge);
+                        await _challengeRepository.SaveChangesAsync();
+                    }
+                }
+            }
+            else
+            {
+                task.IsDone = true;
+                if (challenge.EndDate.Date.Equals(task.AssignedDate.Date) 
+                    && challenge.EndDate.Date.Equals(DateTimeOffset.Now.Date))
+                {
+                    challenge.IsCompleted = true;
+                    await _challengeRepository.UpdateAsync(challenge);
+                    await _challengeRepository.SaveChangesAsync();
+                }
             }
         }
         await _dailyTaskRepository.UpdateAsync(task);
