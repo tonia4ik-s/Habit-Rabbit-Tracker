@@ -17,5 +17,4 @@ public interface IRepository<TEntity> where TEntity : class
     Task UpdateAsync(TEntity entityToUpdate);
     Task<int> SaveChangesAsync();
     IQueryable<TEntity> Query(params Expression<Func<TEntity, object>>[] includes);
-        
 }

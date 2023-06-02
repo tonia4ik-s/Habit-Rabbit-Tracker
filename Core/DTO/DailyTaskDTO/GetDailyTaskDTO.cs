@@ -9,6 +9,7 @@ public class GetDailyTaskDTO
     public string ChallengeTitle { get; set; }
     public string Description { get; set; }
     public int CountOfUnits { get; set; }
+    public string Color { get; set; }
     public string UnitShortName { get; set; }
     public string UnitName { get; set; }
     public string IconName { get; set; }

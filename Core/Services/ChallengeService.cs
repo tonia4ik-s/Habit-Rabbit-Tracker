@@ -207,4 +207,68 @@ public class ChallengeService : IChallengeService
             .FirstOrDefaultAsync();
         return _mapper.Map<ChallengeDTO>(challenge);
     }
+
+    public async Task<List<StatisticsGeneralDTO>> GetStatisticsAsync(string userId)
+    {
+        var startDate = DateTimeOffset.Now.AddDays(-6);
+        var dailyTasks = await _dailyTaskRepository.Query()
+            .Where(t => t.Challenge.CreatedById == userId 
+                        && t.AssignedDate <= DateTimeOffset.Now 
+                        && t.AssignedDate >= startDate)
+            .OrderBy(t => t.AssignedDate)
+            .Include(t => t.Subtask)
+            .Include(t => t.Challenge).ToListAsync();
+
+        return GetStatistic(dailyTasks, startDate);
+    }
+    
+    public async Task<List<StatisticsGeneralDTO>> GetStatisticsAsync(int challengeId)
+    {
+        var startDate = DateTimeOffset.Now.AddDays(-6);
+        var dailyTasks = await _dailyTaskRepository.Query()
+            .Where(t => t.ChallengeId == challengeId 
+                        && t.AssignedDate <= DateTimeOffset.Now 
+                        && t.AssignedDate >= startDate)
+            .OrderBy(t => t.AssignedDate)
+            .Include(t => t.Subtask)
+            .Include(t => t.Challenge).ToListAsync();
+
+        return GetStatistic(dailyTasks, startDate);
+    }
+
+    private static List<StatisticsGeneralDTO> GetStatistic(
+        IReadOnlyList<DailyTask> dailyTasks,
+        DateTimeOffset startDate
+        )
+    {
+        var statistics = new List<StatisticsGeneralDTO>();
+        var k = 0;
+        for (var date = startDate; date.Date <= DateTimeOffset.Now.Date; date = date.AddDays(1))
+        {
+            var stats = new StatisticsGeneralDTO
+            {
+                Date = date,
+                PercentageDone = 0
+            };
+            var countOfDone = 0;
+            var countOfTotal = 0;
+
+            while(k < dailyTasks.Count && dailyTasks[k].AssignedDate.Date <= date.Date)
+            {
+                if (dailyTasks[k].AssignedDate.Date == date.Date)
+                {
+                    countOfDone += dailyTasks[k].CountOfUnitsDone;
+                    countOfTotal += dailyTasks[k].Subtask != null
+                        ? dailyTasks[k].Subtask.CountOfUnits
+                        : dailyTasks[k].Challenge.CountOfUnits;   
+                }
+                k++;
+            }
+            
+            stats.PercentageDone = countOfTotal == 0 ? 0 : Math.Round((double)countOfDone / (double) countOfTotal * 100);
+            statistics.Add(stats);
+        }
+        
+        return statistics;
+    }
 }

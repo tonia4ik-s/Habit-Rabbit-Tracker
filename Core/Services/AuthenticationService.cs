@@ -112,7 +112,7 @@ public class AuthenticationService : IAuthenticationService
         refreshToken.Token = newRefreshToken;
         await _refreshTokenRepository.UpdateAsync(refreshToken);
         await _refreshTokenRepository.SaveChangesAsync();
-        var tokens = new UserAuthorizationDTO()
+        var tokens = new UserAuthorizationDTO
         {
             AccessToken = newToken,
             RefreshToken = refreshToken.Token

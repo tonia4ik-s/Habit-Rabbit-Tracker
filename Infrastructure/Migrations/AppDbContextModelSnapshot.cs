@@ -34,7 +34,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("UsersId");
 
-                    b.ToTable("ChallengeUser");
+                    b.ToTable("ChallengeUser", (string)null);
                 });
 
             modelBuilder.Entity("Core.Entities.Challenge", b =>
@@ -102,7 +102,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("VisibilityId");
 
-                    b.ToTable("Challenges");
+                    b.ToTable("Challenges", (string)null);
 
                     b.HasData(
                         new
@@ -189,7 +189,7 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ChallengeTypes");
+                    b.ToTable("ChallengeTypes", (string)null);
 
                     b.HasData(
                         new
@@ -235,7 +235,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("SubtaskId");
 
-                    b.ToTable("DailyTasks");
+                    b.ToTable("DailyTasks", (string)null);
 
                     b.HasData(
                         new
@@ -709,7 +709,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("RefreshToken");
+                    b.ToTable("RefreshToken", (string)null);
                 });
 
             modelBuilder.Entity("Core.Entities.Subtask", b =>
@@ -739,7 +739,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("UnitId");
 
-                    b.ToTable("Subtasks");
+                    b.ToTable("Subtasks", (string)null);
                 });
 
             modelBuilder.Entity("Core.Entities.Unit", b =>
@@ -760,7 +760,7 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Units");
+                    b.ToTable("Units", (string)null);
 
                     b.HasData(
                         new
@@ -815,7 +815,7 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Visibilities");
+                    b.ToTable("Visibilities", (string)null);
 
                     b.HasData(
                         new

@@ -57,5 +57,19 @@ public class ChallengeController : Controller
         await _challengeService.DeleteChallenge(challengeId);
         return Ok();
     }
-        
+
+    [HttpGet("statistics")]
+    public async Task<ActionResult> GetTotalStatistics()
+    {
+        var userId = _userService.GetCurrentUserNameIdentifier(User);
+        var statistics = await _challengeService.GetStatisticsAsync(userId);
+        return Ok(statistics);
+    }
+    
+    [HttpGet("statistics/{challengeId:int}")]
+    public async Task<ActionResult> GetChallengeStatistics(int challengeId)
+    {
+        var statistics = await _challengeService.GetStatisticsAsync(challengeId);
+        return Ok(statistics);
+    }
 }

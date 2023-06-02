@@ -2,25 +2,24 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Infrastructure.Configurations
+namespace Infrastructure.Configurations;
+
+public class UserConfiguration : IEntityTypeConfiguration<User>
 {
-    public class UserConfiguration : IEntityTypeConfiguration<User>
+    public void Configure(EntityTypeBuilder<User> builder)
     {
-        public void Configure(EntityTypeBuilder<User> builder)
-        {
-            builder.Property(p => p.Points)
-                .HasDefaultValue(0);
-            builder
-                .HasMany(p => p.AuthoredChallenges)
-                .WithOne(p => p.CreatedBy)
-                .HasForeignKey(p => p.CreatedById);
-            builder
-                .HasMany(p => p.Challenges)
-                .WithMany(p => p.Users);
-            builder
-                .HasMany(p => p.RefreshTokens)
-                .WithOne(p => p.User)
-                .HasForeignKey(p => p.UserId);
-        }
+        builder.Property(p => p.Points)
+            .HasDefaultValue(0);
+        builder
+            .HasMany(p => p.AuthoredChallenges)
+            .WithOne(p => p.CreatedBy)
+            .HasForeignKey(p => p.CreatedById);
+        builder
+            .HasMany(p => p.Challenges)
+            .WithMany(p => p.Users);
+        builder
+            .HasMany(p => p.RefreshTokens)
+            .WithOne(p => p.User)
+            .HasForeignKey(p => p.UserId);
     }
 }
