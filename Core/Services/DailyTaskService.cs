@@ -2,7 +2,6 @@ using AutoMapper;
 using Core.Entities;
 using Core.Interfaces;
 using Core.Interfaces.Services;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Core.DTO.DailyTaskDTO;
 using Core.DTO.SubtaskDTO;
@@ -13,18 +12,19 @@ public class DailyTaskService : IDailyTaskService
 {
     private readonly IRepository<DailyTask> _dailyTaskRepository;
     private readonly IRepository<Challenge> _challengeRepository;
-    private readonly IChallengeService _challengeService;
+    private readonly IRepository<User> _userRepository;
     private readonly IMapper _mapper;
 
     public DailyTaskService(
+        IMapper mapper,
         IRepository<DailyTask> dailyTaskRepository,
-        IChallengeService challengeService,
-        IMapper mapper, IRepository<Challenge> challengeRepository)
+        IRepository<Challenge> challengeRepository,
+        IRepository<User> userRepository)
     {
         _dailyTaskRepository = dailyTaskRepository;
-        _challengeService = challengeService;
         _mapper = mapper;
         _challengeRepository = challengeRepository;
+        _userRepository = userRepository;
     }
 
     public async Task<List<GetDailyTaskDTO>> GetAllTasksForTodayByUser(string userId)
@@ -111,32 +111,36 @@ public class DailyTaskService : IDailyTaskService
                 if (dailySubTasks.All(dailySub => dailySub.IsDone)
                     && task.CountOfUnitsDone >= challenge.CountOfUnits)
                 {
-                    task.IsDone = true;
-                    if (challenge.EndDate.Date.Equals(task.AssignedDate.Date) 
-                        && challenge.EndDate.Date.Equals(DateTimeOffset.Now.Date))
-                    {
-                        challenge.IsCompleted = true;
-                        await _challengeRepository.UpdateAsync(challenge);
-                        await _challengeRepository.SaveChangesAsync();
-                    }
+                    await CompleteTaskAndChallenge(task, challenge);
                 }
             }
             else
             {
-                task.IsDone = true;
-                if (challenge.EndDate.Date.Equals(task.AssignedDate.Date) 
-                    && challenge.EndDate.Date.Equals(DateTimeOffset.Now.Date))
-                {
-                    challenge.IsCompleted = true;
-                    await _challengeRepository.UpdateAsync(challenge);
-                    await _challengeRepository.SaveChangesAsync();
-                }
+                await CompleteTaskAndChallenge(task, challenge);
             }
         }
         await _dailyTaskRepository.UpdateAsync(task);
         await _dailyTaskRepository.SaveChangesAsync();
     }
-        
+
+    private async Task CompleteTaskAndChallenge(DailyTask task, Challenge challenge)
+    {
+        var user = await _userRepository.GetByIdAsync(challenge.CreatedById);
+        task.IsDone = true;
+        user.Points += 2;
+        if (challenge.EndDate.Date.Equals(task.AssignedDate.Date) 
+            && challenge.EndDate.Date.Equals(DateTimeOffset.Now.Date))
+        {
+            challenge.IsCompleted = true;
+            user.Points += 5;
+            await _challengeRepository.UpdateAsync(challenge);
+            await _challengeRepository.SaveChangesAsync();
+        }
+
+        await _userRepository.UpdateAsync(user);
+        await _userRepository.SaveChangesAsync();
+    }
+
     public async Task DeleteAllTasksByChallenge(int challengeId)
     {
         var tasks = await _dailyTaskRepository.Query()
@@ -149,11 +153,22 @@ public class DailyTaskService : IDailyTaskService
     {
         var task = await _dailyTaskRepository.GetByIdAsync(taskId);
         var challenge = await _challengeRepository.GetByIdAsync(task.ChallengeId);
+        var user = await _userRepository.GetByIdAsync(challenge.CreatedById);
         task.CountOfUnitsDone = 0;
-        task.IsDone = false;
-        challenge.IsCompleted = false;
+        if (task.IsDone)
+        {
+            user.Points--;
+            task.IsDone = false;
+        }
+        if (challenge.IsCompleted)
+        {
+            user.Points -= 5;
+            challenge.IsCompleted = false;
+        }
+        
         await _challengeRepository.UpdateAsync(challenge);
         await _dailyTaskRepository.UpdateAsync(task);
+        await _userRepository.UpdateAsync(user);
         await _dailyTaskRepository.SaveChangesAsync();
     }
 }

@@ -14,19 +14,22 @@ public class ChallengeService : IChallengeService
     private readonly IMapper _mapper;
     private readonly IUserService _userService;
     private readonly IRepository<DailyTask> _dailyTaskRepository;
+    private readonly IRepository<User> _userRepository;
 
     public ChallengeService(
         IRepository<Challenge> challengeRepository,
         IMapper mapper,
         IUserService userService,
         IRepository<DailyTask> dailyTaskRepository,
-        IRepository<Subtask> subtaskRepository)
+        IRepository<Subtask> subtaskRepository,
+        IRepository<User> userRepository)
     {
         _challengeRepository = challengeRepository;
         _mapper = mapper;
         _userService = userService;
         _dailyTaskRepository = dailyTaskRepository;
         _subtaskRepository = subtaskRepository;
+        _userRepository = userRepository;
     }
     
     public async Task<IList<ChallengeDTO>> GetAllChallengesByUser(string userId)
@@ -43,7 +46,7 @@ public class ChallengeService : IChallengeService
 
     public async Task AddChallenge(string userId, CreateChallengeDTO createChallengeDto)
     {
-        var user = await _userService.GetUserById(userId);
+        var user = await _userRepository.GetByIdAsync(userId);
         var challenge = _mapper.Map<Challenge>(createChallengeDto);
         challenge.CreatedById = user.Id;
         challenge = await _challengeRepository.AddAsync(challenge);
@@ -62,6 +65,9 @@ public class ChallengeService : IChallengeService
             await _subtaskRepository.SaveChangesAsync();
         }
         await CreateDailyTasksByChallenge(challenge, sub, challenge.StartDate, challenge.EndDate);
+        user.Points++;
+        await _userRepository.UpdateAsync(user);
+        await _userRepository.SaveChangesAsync();
     }
 
     private async Task CreateDailyTasksByChallenge(
@@ -104,15 +110,6 @@ public class ChallengeService : IChallengeService
         }
         await _dailyTaskRepository.SaveChangesAsync();
     }
-
-    // public async Task UpdateChallenge(string userId, UpdateChallengeDTO updateChallengeDto)
-    // {
-    //     var user = await _userService.GetUserById(userId);
-    //     var challenge = _mapper.Map<Challenge>(updateChallengeDto);
-    //     challenge.CreatedById = user.Id;
-    //     await _challengeRepository.UpdateAsync(challenge);
-    //     await _challengeRepository.SaveChangesAsync();
-    // }
 
     public async Task UpdateChallenge(string userId, UpdateChallengeDTO updateChallengeDto)
     {
