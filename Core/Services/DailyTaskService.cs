@@ -58,7 +58,7 @@ public class DailyTaskService : IDailyTaskService
             .Where(t => t.Challenge.CreatedById == userId 
                         && t.AssignedDate.Date == date.Date
                         && t.SubtaskId == null)
-            .Include(t => t.Challenge.Unit)
+            .Include(t => t.Challenge)
             .ToListAsync();
         var mappedTasks = new List<GetDailyTaskDTO>();
         foreach (var task in tasks)
@@ -157,12 +157,12 @@ public class DailyTaskService : IDailyTaskService
         task.CountOfUnitsDone = 0;
         if (task.IsDone)
         {
-            user.Points--;
+            user.Points -= 2;
             task.IsDone = false;
         }
         if (challenge.IsCompleted)
         {
-            user.Points -= 5;
+            user.Points -= 6;
             challenge.IsCompleted = false;
         }
         

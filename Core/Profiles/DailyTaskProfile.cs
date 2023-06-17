@@ -39,6 +39,9 @@ public class DailyTaskProfile : Profile
             .ForMember(d => d.IconName,
                 opt => opt
                     .MapFrom(task => task.Challenge.IconName))
+            .ForMember(d => d.Color,
+                opt => opt
+                    .MapFrom(task => task.Challenge.Color))
             .ForMember(d => d.Date,
                 opt => opt
                     .MapFrom(task => task.AssignedDate));
