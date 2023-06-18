@@ -42,7 +42,8 @@ public static class Seed
                 NormalizedEmail = persons[0].Email.ToUpper(),
                 NormalizedUserName = persons[0].UserName.ToUpper(),
                 Email = persons[0].Email,
-                Points = 0
+                Points = 0,
+                Status = 0
             };
             var user1 = new User
             {
@@ -51,7 +52,8 @@ public static class Seed
                 NormalizedEmail = persons[1].Email.ToUpper(),
                 NormalizedUserName = persons[1].UserName.ToUpper(),
                 Email = persons[1].Email,
-                Points = 0
+                Points = 0,
+                Status = 0
             };
             var user2 = new User
             {
@@ -60,7 +62,8 @@ public static class Seed
                 NormalizedEmail = persons[2].Email.ToUpper(),
                 NormalizedUserName = persons[2].UserName.ToUpper(),
                 Email = persons[2].Email,
-                Points = 0
+                Points = 0,
+                Status = 0
             };
             var user3 = new User
             {
@@ -69,7 +72,8 @@ public static class Seed
                 NormalizedEmail = persons[3].Email.ToUpper(),
                 NormalizedUserName = persons[3].UserName.ToUpper(),
                 Email = persons[3].Email,
-                Points = 0
+                Points = 0,
+                Status = 0
             };
             var userTonia = new User
             {
@@ -78,7 +82,8 @@ public static class Seed
                 NormalizedEmail = "antonina.loboda@oa.edu.ua".ToUpper(),
                 NormalizedUserName = "antonina.loboda@oa.edu.ua".ToUpper(),
                 Email = "antonina.loboda@oa.edu.ua",
-                Points = 0
+                Points = 0,
+                Status = 0
             };
             var userAnna = new User
             {
@@ -87,7 +92,8 @@ public static class Seed
                 NormalizedEmail = "anna.korolchuk@oa.edu.ua".ToUpper(),
                 NormalizedUserName = "anna.korolchuk@oa.edu.ua".ToUpper(),
                 Email = "anna.korolchuk@oa.edu.ua",
-                Points = 0
+                Points = 0,
+                Status = 0
             };
             user0.PasswordHash = PasswordHasher.HashPassword(user0, "Password_1");
             user1.PasswordHash = PasswordHasher.HashPassword(user1, "Password_1");

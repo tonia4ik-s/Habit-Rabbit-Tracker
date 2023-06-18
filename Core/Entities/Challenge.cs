@@ -23,5 +23,4 @@ public class Challenge
 
     public ICollection<DailyTask> DailyTasks { get; set; }
     public ICollection<Subtask> Subtasks { get; set; }
-    public ICollection<User> Users { get; set; }
 }

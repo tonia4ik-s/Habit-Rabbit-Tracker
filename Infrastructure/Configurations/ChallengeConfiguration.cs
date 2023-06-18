@@ -38,8 +38,5 @@ public class ChallengeConfiguration : IEntityTypeConfiguration<Challenge>
             .HasMany(p => p.DailyTasks)
             .WithOne(p => p.Challenge)
             .HasForeignKey(p => p.ChallengeId);
-        builder
-            .HasMany(p => p.Users)
-            .WithMany(p => p.Challenges);
     }
 }

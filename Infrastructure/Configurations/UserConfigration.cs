@@ -10,13 +10,12 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
     {
         builder.Property(p => p.Points)
             .HasDefaultValue(0);
+        builder.Property(p => p.Status)
+            .HasDefaultValue(0);
         builder
             .HasMany(p => p.AuthoredChallenges)
             .WithOne(p => p.CreatedBy)
             .HasForeignKey(p => p.CreatedById);
-        builder
-            .HasMany(p => p.Challenges)
-            .WithMany(p => p.Users);
         builder
             .HasMany(p => p.RefreshTokens)
             .WithOne(p => p.User)

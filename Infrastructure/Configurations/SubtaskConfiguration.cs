@@ -11,7 +11,8 @@ namespace Infrastructure.Configurations
             builder
                 .HasOne(p => p.Unit)
                 .WithMany(p => p.Subtasks)
-                .HasForeignKey(p => p.UnitId);
+                .HasForeignKey(p => p.UnitId)
+                .OnDelete(DeleteBehavior.NoAction);
             builder
                 .HasOne(p => p.Challenge)
                 .WithMany(p => p.Subtasks)

@@ -138,6 +138,14 @@ public class DailyTaskService : IDailyTaskService
             await _challengeRepository.SaveChangesAsync();
         }
 
+        user.Status = user.Points switch
+        {
+            < 50 => 0,
+            >= 50 and < 100 => 1,
+            >= 100 and < 150 => 2,
+            >= 150 and < 250 => 3,
+            _ => 0
+        };
         await _userRepository.UpdateAsync(user);
         await _userRepository.SaveChangesAsync();
     }
@@ -166,6 +174,15 @@ public class DailyTaskService : IDailyTaskService
             user.Points -= 6;
             challenge.IsCompleted = false;
         }
+        
+        user.Status = user.Points switch
+        {
+            < 50 => 0,
+            >= 50 and < 100 => 1,
+            >= 100 and < 150 => 2,
+            >= 150 and < 250 => 3,
+            _ => 0
+        };
         
         await _challengeRepository.UpdateAsync(challenge);
         await _dailyTaskRepository.UpdateAsync(task);
