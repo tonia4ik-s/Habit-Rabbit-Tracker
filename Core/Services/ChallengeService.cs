@@ -210,8 +210,8 @@ public class ChallengeService : IChallengeService
         var startDate = DateTimeOffset.Now.AddDays(-6);
         var dailyTasks = await _dailyTaskRepository.Query()
             .Where(t => t.Challenge.CreatedById == userId 
-                        && t.AssignedDate <= DateTimeOffset.Now 
-                        && t.AssignedDate >= startDate)
+                        && t.AssignedDate.Date <= DateTimeOffset.Now.Date 
+                        && t.AssignedDate.Date >= startDate.Date)
             .OrderBy(t => t.AssignedDate)
             .Include(t => t.Subtask)
             .Include(t => t.Challenge).ToListAsync();
@@ -224,8 +224,8 @@ public class ChallengeService : IChallengeService
         var startDate = DateTimeOffset.Now.AddDays(-6);
         var dailyTasks = await _dailyTaskRepository.Query()
             .Where(t => t.ChallengeId == challengeId 
-                        && t.AssignedDate <= DateTimeOffset.Now 
-                        && t.AssignedDate >= startDate)
+                        && t.AssignedDate.Date <= DateTimeOffset.Now.Date 
+                        && t.AssignedDate.Date >= startDate.Date)
             .OrderBy(t => t.AssignedDate)
             .Include(t => t.Subtask)
             .Include(t => t.Challenge).ToListAsync();
