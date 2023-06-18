@@ -59,6 +59,7 @@ public class DailyTaskService : IDailyTaskService
                         && t.AssignedDate.Date == date.Date
                         && t.SubtaskId == null)
             .Include(t => t.Challenge)
+            .Include(t => t.Challenge.Unit)
             .ToListAsync();
         var mappedTasks = new List<GetDailyTaskDTO>();
         foreach (var task in tasks)
